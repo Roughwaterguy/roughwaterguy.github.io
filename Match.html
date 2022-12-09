@@ -9,8 +9,12 @@
     </style>
     <script>
       var i;
+      
   function newPerson() {
+    //create random number
    i = Math.floor(Math.random() * 6);
+    
+    //Choose photo depending on number
    if (i == 0){
      document.getElementById("person").src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cmFuZG9tJTIwcGVvcGxlfGVufDB8fDB8fA%3D%3D&w=1000&q=80";
    }
