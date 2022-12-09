@@ -1,2 +1,2 @@
 # roughwaterguy.github.io
-This is kindof a Mishmash of various diffrent things, feel free to explore!
+This is kind of a mish-mash of various things, feel free to explore!
