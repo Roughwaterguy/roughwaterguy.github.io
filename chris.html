@@ -1,71 +1,73 @@
 <html>
 
-<head>
+  <head>
     <title>X-MAS</title>
     <link rel="icon" type="image/x-icon" href="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/51f62842-3c0e-448f-9fd3-c5b3b6c6ae8e/d5lkmu8-4f1c366f-3cc0-4cf7-bb8d-0b80022d28f8.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzUxZjYyODQyLTNjMGUtNDQ4Zi05ZmQzLWM1YjNiNmM2YWU4ZVwvZDVsa211OC00ZjFjMzY2Zi0zY2MwLTRjZjctYmI4ZC0wYjgwMDIyZDI4ZjgucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.VUfzyjysplDYMUgBskHDjBXKTWJTzflSMW4cFoeU82c">
     <style>
-        @font-face {
+      @font-face {
         font-family: xfont;
         src: url(chrisfont.ttf);
       }
 
-        body {
-            background-image: url('https://i.pinimg.com/originals/4e/fe/0b/4efe0b22a160c00d5afd378d5c1d45c8.gif');
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
+      body {
+        background-image: url('https://i.pinimg.com/originals/4e/fe/0b/4efe0b22a160c00d5afd378d5c1d45c8.gif');
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
 
-        .title {
-            font-family: xfont;
-            color: crimson;
-        }
+      .title {
+        font-family: xfont;
+        color: crimson;
+      }
 
-        .code {
-            color: azure;
-        }
+      .code {
+        color: azure;
+      }
 
-        .hint {
-            color: azure;
-            font-family: xfont;
-        }
+      .hint {
+        color: azure;
+        font-family: xfont;
+      }
+
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="title">
-        <center>
-            <h1> ***Christmas Code Cracking*** </h1>
-        </center>
+      <center>
+        <h1> ***Christmas Code Cracking*** </h1>
+      </center>
     </div>
     <div class="code">
-        <center>
-                <pre>/25/14/32/14/21/34/44/44/34/33/24/11/14/22/
+      <center>
+        <pre>/25/14/32/14/21/34/44/44/34/33/24/11/14/22/
         /11/22/33/25/33/33/54/32/45/23/23/25/33/43/
 
                 Thanks for listening, ELF
-                </pre> 
-        </center>
+                </pre>
+      </center>
     </div>
     <div class="hint">
-        <center>
-            <p>I won't give you any hints except that the keyword is ELF, also make sure to answer in all caps and no spaces. Once you think you have it all you have to do is press enter. If you get an alert that tells you it's wrong, that means it's wrong. If a alert shows up that tells you you won then it means you cracked it and you will receive a $1 prize! Make sure to screenshot it and send it to Cole at s27.jcaldwell@sels.us, Good luck :-)</p>
-        </center>
+      <center>
+        <p>I won't give you any hints except that the keyword is ELF, also make sure to answer in all caps and no spaces. Once you think you have it all you have to do is press enter. If you get an alert that tells you it's wrong, that means it's wrong. If a alert shows up that tells you you won then it means you cracked it and you will receive a $1 prize! Make sure to screenshot it and send it to Cole at s27.jcaldwell@sels.us, Good luck :-)</p>
+      </center>
     </div>
     <center>
-        <input type="search" id="search" onchange="guessCode()"
-    </center>
-    <script>
-        function guessCode(){
-            var x = document.getElementById("search").value;
-            
-            if (x == "IAMACOTTONHEADEDNINNYMUGGINS"){
-                alert("Hey you got it right, now screenshot this page and send it to Cole to get your 1$ prize")
-            } else {
-                alert("Nope, try again.")
-            }
-            
+      <input type="search" id="search" onchange="guessCode()">
+    </center> 
+      <script>
+        function guessCode() {
+          var x = document.getElementById("search").value;
+
+          if (x == "IAMACOTTONHEADEDNINNYMUGGINS") {
+            alert("Hey you got it right, now screenshot this page and send it to Cole to get your 1$ prize")
+          } else {
+            alert("Nope, try again.")
+          }
+
         }
-    </script>
-</body>
+
+      </script>
+  </body>
 
 </html>
