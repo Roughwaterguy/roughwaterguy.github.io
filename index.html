@@ -29,16 +29,6 @@
         padding-top: 5px;
       }
     </style>
-    <script>
-      function openWebsite() {
-          var searchInput = document.getElementById("searchInput").value;
-          if (searchInput.startsWith("http://") || searchInput.startsWith("https://")) {
-              window.open(searchInput, "_blank");
-          } else {
-              alert("Please enter a valid website URL starting with 'http://' or 'https://'.");
-          }
-      }
-  </script>
   </head>
 
   <body>
@@ -87,12 +77,18 @@
         </tr>
         <tr>
           <td><a href=""><img src="/img/place.png"></a></td>
-          <td colspan="4"><input type="text" id="searchInput" placeholder="Enter a website URL">
-            <button onclick="openWebsite()">Search</button>
+          <td colspan="4input type="search" onchange="search()" id="bar" style="background-color: rgb(20, 20, 20); color: red;">
+            <input type="button" onclick="search()" value="SEARCH" style="color: red; background-color:rgb(20, 20, 20) ;">
           </td>
           <td><a href=""><img src="/img/place.png"></a></td>
         </tr>
       </table>
+      <script>
+        function search(){
+          var x = document.getElementById("bar").value;
+          window.open(x, "_blank");
+        }
+      </script>
     </center>
     <br />
     <center>
