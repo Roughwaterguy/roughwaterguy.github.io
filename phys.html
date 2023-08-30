@@ -40,14 +40,17 @@
                     'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/10/wheel-of-fortune-tarot-card.webp',
             ];
 
-            // Set source of all card images to "cback.png"
-            const cards = document.getElementsByClassName("card");
+        
 
             // Wait for 1 second
-            while (new Date().getTime() - startTime < 2000) {
-                cards[0].src = "https://taroteca-studio.com/userdata/public/gfx/073c62f486bc27ae35361abcf4149049.jpg";
-                cards[1].src = "https://taroteca-studio.com/userdata/public/gfx/073c62f486bc27ae35361abcf4149049.jpg";
-                cards[2].src = "https://taroteca-studio.com/userdata/public/gfx/073c62f486bc27ae35361abcf4149049.jpg";
+            while (new Date().getTime() - startTime < 1000) {
+                document.getElementById("1").src = "https://taroteca-studio.com/userdata/public/gfx/073c62f486bc27ae35361abcf4149049.jpg";
+            }
+            while (new Date().getTime() - startTime < 1000) {
+                document.getElementById("2").src = "https://taroteca-studio.com/userdata/public/gfx/073c62f486bc27ae35361abcf4149049.jpg";
+            }
+            while (new Date().getTime() - startTime < 1000) {
+                document.getElementById("3").src = "https://taroteca-studio.com/userdata/public/gfx/073c62f486bc27ae35361abcf4149049.jpg";
             }
 
             // Set random sources for each card
