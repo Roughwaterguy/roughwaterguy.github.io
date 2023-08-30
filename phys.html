@@ -12,10 +12,31 @@
             Secure and confidential platform available anytime, anywhere.<br />
             Get tarot card, astrology, numerology readings, and more.<br />
             Join us today and uncover the transformative power of torra psychics.</p>
-        <img src="cback.png" id="1">
-        <img src="cback.png" id="2">
-        <img src="cback.png" id="3">
+        <div style="background-image: https://www.carpetways.com/wp-content/uploads/2021/09/Windsor-Velvet-25-Coronation-Red.png;">
+            <img src="cback.png" class="card" id="1">
+            <img src="cback.png" class="card" id="2">
+            <img src="cback.png" class="card" id="3">
+            <br />
+            <input type="button" onclick="gener()" value="Recieve Fortune" style="color: red; background-color: goldenrod ;">
+        </div>
+        <script>
+            function gener(){
+                const startTime = new Date().getTime();
+                const links = ['https://www.google.com', 'https://stackoverflow.com', 'https://github.com', 'https://en.wikipedia.org'];
+                while (new Date().getTime() - startTime < 1000) {
+                    document.getElementsByClassName("card").src = "cback.png";
+                }
+                function getRandomLink(links) {
+                    const randomIndex = Math.floor(Math.random() * links.length);  // generate a random index within the length of the array
+                    return links[randomIndex];  // return the link at the random index
+                }
+                const randomLink = getRandomLink(links);
+                document.getElementsById("1").src = getRandomLink(links);
+                document.getElementsById("2").src = getRandomLink(links);
+                document.getElementsById("3").src = getRandomLink(links);
+            }
+        </script>
         <br />
-        <input type="button" 
+
     </body>
 </html>
