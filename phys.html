@@ -30,6 +30,7 @@
         <br />
         <script>
             function gener(){
+                const gtime = new Date().getTime();
                 const links = [
                     'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/03/the-fool-tarot-card.webp', 
                     'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/03/the-magician-tarot-card.webp', 
@@ -43,24 +44,9 @@
                     'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/09/the-hermit-tarot-card-meaning-rider-waite.webp',
                     'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/10/wheel-of-fortune-tarot-card.webp',
             ];
-
-        
-            var gtime = new Date().getTime();
-            document.getElementById("1").src = "https://taroteca-studio.com/userdata/public/gfx/073c62f486bc27ae35361abcf4149049.jpg";
             while (new Date().getTime() - gtime < 2000) {
                 
-            }
-            gtime = new Date().getTime();
-            document.getElementById("2").src = "https://taroteca-studio.com/userdata/public/gfx/073c62f486bc27ae35361abcf4149049.jpg";
-            while (new Date().getTime() - gtime < 2000) {
-                
-            }
-            gtime = new Date().getTime();
-            document.getElementById("3").src = "https://taroteca-studio.com/userdata/public/gfx/073c62f486bc27ae35361abcf4149049.jpg";
-            while (new Date().getTime() - gtime < 2000) {
-                
-            }
-
+            }   
             // Set random sources for each card
             document.getElementById("1").src = getRandomLink(links);
             document.getElementById("2").src = getRandomLink(links);
