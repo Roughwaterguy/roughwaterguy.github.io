@@ -38,19 +38,29 @@
                     'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/07/strength-tarot-card.webp',
                     'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/09/the-hermit-tarot-card-meaning-rider-waite.webp',
                     'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/10/wheel-of-fortune-tarot-card.webp',
-                ];
-                while (new Date().getTime() - startTime < 1000) {
-                    document.getElementsByClassName("card").src = "cback.png";
-                }
-                function getRandomLink(links) {
-                    const randomIndex = Math.floor(Math.random() * links.length);  // generate a random index within the length of the array
-                    return links[randomIndex];  // return the link at the random index
-                }
-                const randomLink = getRandomLink(links);
-                document.getElementsById("1").src = getRandomLink(links);
-                document.getElementsById("2").src = getRandomLink(links);
-                document.getElementsById("3").src = getRandomLink(links);
+            ];
+
+            // Set source of all card images to "cback.png"
+            const cards = document.getElementsByClassName("card");
+            for (let i = 0; i < cards.length; i++) {
+                cards[i].src = "cback.png";
             }
+
+            // Wait for 1 second
+            while (new Date().getTime() - startTime < 1000) {
+              // Do nothing
+            }
+
+            // Set random sources for each card
+            document.getElementById("1").src = getRandomLink(links);
+            document.getElementById("2").src = getRandomLink(links);
+            document.getElementById("3").src = getRandomLink(links);
+
+            function getRandomLink(links) {
+                const randomIndex = Math.floor(Math.random() * links.length);  // generate a random index within the length of the array
+                return links[randomIndex];  // return the link at the random index
+            }
+        } 
         </script>
         <br />
         <p style="color: red;">Created by Cole Caldwell</p>
