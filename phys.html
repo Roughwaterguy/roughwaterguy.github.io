@@ -47,14 +47,17 @@
         
 
             // Wait for 1 second
+            var gtime = new Date().getTime();
             document.getElementById("1").src = "https://taroteca-studio.com/userdata/public/gfx/073c62f486bc27ae35361abcf4149049.jpg";
-            while (new Date().getTime() - new Date().getTime() < 2000) {
+            while (new Date().getTime() - gtime < 2000) {
                 
             }
+            gtime = new Date().getTime();
             document.getElementById("2").src = "https://taroteca-studio.com/userdata/public/gfx/073c62f486bc27ae35361abcf4149049.jpg";
-            while (new Date().getTime() - new Date().getTime() < 2000) {
+            while (new Date().getTime() - gtime < 2000) {
                 
             }
+            gtime = new Date().getTime();
             document.getElementById("3").src = "https://taroteca-studio.com/userdata/public/gfx/073c62f486bc27ae35361abcf4149049.jpg";
             while (new Date().getTime() - new Date().getTime() < 2000) {
                 
