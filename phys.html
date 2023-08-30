@@ -42,13 +42,10 @@
 
             // Set source of all card images to "cback.png"
             const cards = document.getElementsByClassName("card");
-            for (let i = 0; i < cards.length; i++) {
-                cards[i].src = "https://taroteca-studio.com/userdata/public/gfx/073c62f486bc27ae35361abcf4149049.jpg";
-            }
 
             // Wait for 1 second
-            while (new Date().getTime() - startTime < 3000) {
-              // Do nothing
+            while (new Date().getTime() - startTime < 2000) {
+                cards.src = "https://taroteca-studio.com/userdata/public/gfx/073c62f486bc27ae35361abcf4149049.jpg";
             }
 
             // Set random sources for each card
