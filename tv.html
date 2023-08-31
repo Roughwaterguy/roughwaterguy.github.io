@@ -32,49 +32,49 @@
             <input id="searchbar" onkeyup="search_video()" type="text" name="search" placeholder="Search videos...">
             <br />
             <div class="Movie">
-                <a href="movie.wtf" width="340" height="195">
+                <a href="" width="340" height="195">
                     <img src="">
                 </a>
                 <p>Description</p>
             </div>
             <div class="Movie">
-                <a href="movie.wtf" width="340" height="195">
+                <a href="#" onclick="openFileInIframe('')" width="340" height="195">
                     <img src="">
                 </a>
                 <p>Description</p>
             </div>
             <div class="Movie">
-                <a href="movie.wtf" width="340" height="195">
+                <a href="#" onclick="openFileInIframe('')" width="340" height="195">
                     <img src="">
                 </a>
                 <p>Description</p>
             </div>
             <div class="Movie">
-                <a href="movie.wtf" width="340" height="195">
+                <a href="#" onclick="openFileInIframe('')" width="340" height="195">
                     <img src="">
                 </a>
                 <p>Description</p>
             </div>
             <div class="Movie">
-                <a href="movie.wtf" width="340" height="195">
+                <a href="#" onclick="openFileInIframe('')" width="340" height="195">
                     <img src="">
                 </a>
                 <p>Description</p>
             </div>
             <div class="Movie">
-                <a href="movie.wtf" width="340" height="195">
+                <a href="#" onclick="openFileInIframe('')" width="340" height="195">
                     <img src="">
                 </a>
                 <p>Description</p>
             </div>
             <div class="Movie">
-                <a href="movie.wtf" width="340" height="195">
+                <a href="#" onclick="openFileInIframe('')" width="340" height="195">
                     <img src="">
                 </a>
                 <p>Description</p>
             </div>
             <div class="Movie">
-                <a href="movie.wtf" width="340" height="195"s>
+                <a href="#" onclick="openFileInIframe('')" width="340" height="195">
                     <img src="">
                 </a>
                 <p>Description</p>
@@ -93,6 +93,17 @@
                         x[i].style.display="inline-block";                 
                     }
                 }
+            }
+
+            function openFileInIframe(filePath) {
+                //create a new tab
+                let tab = window.open('', '_blank');
+
+                //write the iframe code into the new tab
+                tab.document.write('<iframe src="' + filePath + '" width="100%" height="100%"></iframe>');
+  
+                //close the document to make the iframe code take effect
+                tab.document.close();
             }
             </script>
         </center>
