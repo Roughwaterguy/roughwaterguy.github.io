@@ -31,16 +31,48 @@
         font-weight: bold;
       }
 
-    </style>
+      #searchbar{
+     margin-left: 15%;
+     padding:15px;
+     border-radius: 10px;
+   }
+ 
+   input[type=text] {
+      width: 30%;
+      -webkit-transition: width 0.15s ease-in-out;
+      transition: width 0.15s ease-in-out;
+   }
+ 
+   
+   input[type=text]:focus {
+     width: 70%;
+   }
+ 
+  #list{
+    font-size:  1.5em;
+    margin-left: 90px;
+   }
+ 
+.animals{
+   display: list-item;    
+  } 
+   
+   
+   
+   
+   </style>
   </head>
 
   <body>
     <div class="header">
       <center>
         Stiles TV</center>
-    </div>
-
-
+  </div>
+    
+    
+    
+    
+    
     <div class="Movie">
       <video width="320" height="240" controls>
         <source src="matrix.mp4" type="video/mp4">
