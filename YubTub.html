@@ -2,7 +2,6 @@
     <html>
         <head>
             <title>Stiles TV</title>
-            <link rel="icon" type="image/yubtub.html">
             <style>
             
             .searchbar{
@@ -11,14 +10,33 @@
             }
             .Movie{
                 display: inline-block;
-            }
-         
+                cursor:pointer;
+                }
+         .header{
+                height:60px
+                font-size: 25px;
+                text-color: blue;
+                display:flex;
+                flex-direction:row;
+                position: fixed;
+                background-color:gray
+                
+                
+         }
+                
             </style>
         </head>
         <body>
+            <div class="header"><center><input class="searchbar" placeholder="Search" type="text"></center></br>
+            </br><p class="title">STILES TV</p><center>
+               
             
-            <center><input class="searchbar" placeholder="Search" type="text"></center></br>
-           <center>
+            
+            
+            
+            </div>
+                
+            
             <div class="Movie">
                 <video width="320" height="240" controls>
                     <source src="matrix.mp4" type="video/mp4">
