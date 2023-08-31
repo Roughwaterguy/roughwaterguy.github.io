@@ -1,72 +1,113 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <title>24/7 Psychic</title>
-  </head>
+<head>
+  <title>24/7 Psychic</title>
+  <style>
+    body {
+      background-image: url('https://i.pinimg.com/originals/bd/f8/91/bdf8919ea0f6ed9a7278ea01d0861cb6.jpg');
+      background-size: contain;
+      width: 570px;
+    }
 
-  <body>
-    <div style="background-image: url('https://i.pinimg.com/originals/bd/f8/91/bdf8919ea0f6ed9a7278ea01d0861cb6.jpg'); background-size: contain; width: 570px;">
-      <img src="/img/psyc.jpg" width="550px" style="border-radius: 30px; padding-left: 10px; padding-top: 10px;">
-      <br />
-      <p style="padding-left: 10px; color: rgb(206, 206, 156);">24/7 torra psychic reading site offers spiritual guidance and insight.<br />
-        Experienced and gifted psychics provide personalized readings to clients globally.<br />
-        Find clarity and guidance on career, relationships, finances, and life's purpose.<br />
-        Secure and confidential platform available anytime, anywhere.<br />
-        Get tarot card, astrology, numerology readings, and more.<br />
-        Join us today and uncover the transformative power of torra psychics.</p>
+    img {
+      border-radius: 30px;
+      padding-left: 10px;
+      padding-top: 10px;
+    }
 
-      <table style="background-image: url('https://img.freepik.com/premium-photo/organic-beetroot-couscous-closeup-food-background_338311-2016.jpg'); margin-left: 18px; padding: 2px;">
-        <tr>
-          <td><img src="https://taroteca-studio.com/userdata/public/gfx/073c62f486bc27ae35361abcf4149049.jpg" class="card" id="1" width="160" height="250"></td>
-          <td><img src="https://taroteca-studio.com/userdata/public/gfx/073c62f486bc27ae35361abcf4149049.jpg" class="card" id="2" width="160" height="250"></td>
-          <td><img src="https://taroteca-studio.com/userdata/public/gfx/073c62f486bc27ae35361abcf4149049.jpg" class="card" id="3" width="160" height="250"></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <center>
-                <input type="button" onclick="gener()" value="Recieve Fortune" style="color: red; background-color: goldenrod ;">
-            </center>   
-          </td>
-          <td></td>
-        </tr>
-      </table>
-      <br />
-      <script>
-        function gener() {
-          const gtime = new Date().getTime();
-          const links = [
-            'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/03/the-fool-tarot-card.webp',
-            'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/03/the-magician-tarot-card.webp',
-            'https://www.alittlesparkofjoy.com/wp-content/uploads/2019/11/the-high-priestess-tarot-card.webp',
-            'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/02/the-empress-tarot-card.webp',
-            'https://www.alittlesparkofjoy.com/wp-content/uploads/2019/08/the-emperor-tarot-card.webp',
-            'https://www.alittlesparkofjoy.com/wp-content/uploads/2019/10/the-hierophant-tarot.webp',
-            'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/09/the-lovers-modern-way-tarot-deck-600x1024.webp',
-            'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/07/the-chariot-tarot-card.webp',
-            'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/07/strength-tarot-card.webp',
-            'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/09/the-hermit-tarot-card-meaning-rider-waite.webp',
-            'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/10/wheel-of-fortune-tarot-card.webp',
-          ];
-          while (new Date().getTime() - gtime < 1000) {
+    p.descript {
+      padding-left: 10px;
+      color: rgb(206, 206, 156);
+    }
 
-          }
-          // Set random sources for each card
-          document.getElementById("1").src = getRandomLink(links);
-          document.getElementById("2").src = getRandomLink(links);
-          document.getElementById("3").src = getRandomLink(links);
+    table {
+      background-image: url('https://img.freepik.com/premium-photo/organic-beetroot-couscous-closeup-food-background_338311-2016.jpg');
+      margin-left: 18px;
+      padding: 2px;
+    }
 
-          function getRandomLink(links) {
-            const randomIndex = Math.floor(Math.random() * links.length); // generate a random index within the length of the array
-            return links[randomIndex]; // return the link at the random index
-          }
+    .card {
+      width: 160px;
+      height: 250px;
+    }
+
+    input[type="button"] {
+      color: red;
+      background-color: goldenrod;
+    }
+
+    p.red-text {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <img src="/img/psyc.jpg" width="550px">
+    <br />
+    <p class="descript">24/7 torra psychic reading site offers spiritual guidance and insight.<br />
+      Experienced and gifted psychics provide personalized readings to clients globally.<br />
+      Find clarity and guidance on career, relationships, finances, and life's purpose.<br />
+      Secure and confidential platform available anytime, anywhere.<br />
+      Get tarot card, astrology, numerology readings, and more.<br />
+      Join us today and uncover the transformative power of torra psychics.</p>
+
+    <table>
+      <tr>
+        <td><img src="https://taroteca-studio.com/userdata/public/gfx/073c62f486bc27ae35361abcf4149049.jpg"
+            class="card" id="1"></td>
+        <td><img src="https://taroteca-studio.com/userdata/public/gfx/073c62f486bc27ae35361abcf4149049.jpg"
+            class="card" id="2"></td>
+        <td><img src="https://taroteca-studio.com/userdata/public/gfx/073c62f486bc27ae35361abcf4149049.jpg"
+            class="card" id="3"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <center>
+            <input type="button" onclick="gener()" value="Receive Fortune">
+          </center>
+        </td>
+        <td></td>
+      </tr>
+    </table>
+    <br />
+    <script>
+      function gener() {
+        const gtime = new Date().getTime();
+        const links = [
+          'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/03/the-fool-tarot-card.webp',
+          'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/03/the-magician-tarot-card.webp',
+          'https://www.alittlesparkofjoy.com/wp-content/uploads/2019/11/the-high-priestess-tarot-card.webp',
+          'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/02/the-empress-tarot-card.webp',
+          'https://www.alittlesparkofjoy.com/wp-content/uploads/2019/08/the-emperor-tarot-card.webp',
+          'https://www.alittlesparkofjoy.com/wp-content/uploads/2019/10/the-hierophant-tarot.webp',
+          'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/09/the-lovers-modern-way-tarot-deck-600x1024.webp',
+          'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/07/the-chariot-tarot-card.webp',
+          'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/07/strength-tarot-card.webp',
+          'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/09/the-hermit-tarot-card-meaning-rider-waite.webp',
+          'https://www.alittlesparkofjoy.com/wp-content/uploads/2020/10/wheel-of-fortune-tarot-card.webp',
+        ];
+        while (new Date().getTime() - gtime < 1000) {
+
         }
+        // Set random sources for each card
+        document.getElementById("1").src = getRandomLink(links);
+        document.getElementById("2").src = getRandomLink(links);
+        document.getElementById("3").src = getRandomLink(links);
 
-      </script>
-      <br />
-      <p style="color: red;">Created by Cole Caldwell</p>
-    </div>
-  </body>
+        function getRandomLink(links) {
+          const randomIndex = Math.floor(Math.random() * links.length);
+          return links[randomIndex];
+        }
+      }
+
+    </script>
+    <br />
+    <p class="red-text">Created by Cole Caldwell</p>
+  </div>
+</body>
 
 </html>
