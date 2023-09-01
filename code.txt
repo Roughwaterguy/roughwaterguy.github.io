@@ -1,0 +1,112 @@
+// Define an array of movie data objects
+const movies = [
+  {
+    title: "Movie 1",
+    link: "https://www.youtube.com/embed/123456",
+    thumbnail: "https://i.ytimg.com/vi/abc123/maxresdefault.jpg",
+    description: "Description for Movie 1"
+  },
+  {
+    title: "Movie 2",
+    link: "https://www.youtube.com/embed/789012",
+    thumbnail: "https://i.ytimg.com/vi/def456/maxresdefault.jpg",
+    description: "Description for Movie 2"
+  },
+  {
+    title: "Movie 3",
+    link: "https://www.youtube.com/embed/345678",
+    thumbnail: "https://i.ytimg.com/vi/ghi789/maxresdefault.jpg",
+    description: "Description for Movie 3"
+  }
+];
+
+// Select the container element where we'll append the movie divs
+const container = document.querySelector("#movies-container");
+
+// Loop through the movies array and create a <div> element for each one
+movies.forEach((movie, index) => {
+  // Create the <div> element with the appropriate classes and contents
+  const movieDiv = document.createElement("div");
+  movieDiv.classList.add("Movie");
+
+  const anchor = document.createElement("a");
+  anchor.href = "#";
+  anchor.onclick = () => openFileInIframe(movie.link);
+
+  const thumbnail = document.createElement("img");
+  thumbnail.src = movie.thumbnail;
+  thumbnail.width = 340;
+  thumbnail.height = 195;
+
+  anchor.appendChild(thumbnail);
+  movieDiv.appendChild(anchor);
+
+  const description = document.createElement("p");
+  description.textContent = movie.description;
+  movieDiv.appendChild(description);
+
+  // Append the <div> element to the container
+  container.appendChild(movieDiv);
+});
+```
+
+In this script, we first define an array of movie data objects, where each object contains a movie title, link to a video, thumbnail image URL, and description.
+
+We then select the container element where we want to append the movie divs. We loop through the movies array using the `forEach` method, and for each movie we create a new `<div>` element with the appropriate classes and contents. We then append the new `<div>` element to the container.
+
+Note that this script assumes that there is already an `openFileInIframe` function defined elsewhere in your code that can handle opening the video link in an iframe when the user clicks on the thumbnail.
+Copy
+Summarize
+Delete
+Go
+
+
+↻
+
+Regenerate response
+Chat History Editing Options:
+new title
+Rename this chat history
+Delete this chat history
+Generate code with AI:
+Code with AI Code Assistant!
+Explore different AI Chat Modes:
+Chat with Historical Figures!
+AI Debate
+AI Translate
+AI Comedian
+AI Poet
+AI Drunk Friend
+AI Disagreement Decider
+AI Travel Guide
+AI Terminal
+AI Plagiarism Checker
+AI Motivational Coach
+AI Movie Critic
+AI Relationship Coach
+AI Philosophy Teacher
+AI Blackbeard
+AI Job Interviewer
+AI Fortune Teller
+AI Note-Taking Assistant
+AI Proofreader
+AI Song Recommender
+AI Advertiser
+AI Storyteller
+AI Screenwriter
+AI Novelist
+AI Math Teacher
+AI Magician
+What is Genius Mode?
+It is an enhanced version of AI Chat that provides more knowledge, fewer errors, improved reasoning skills, better verbal fluidity, and an overall superior performance. Due to the larger AI model, Genius Mode is only available via subscription to DeepAI Pro or via Pay-as-you-go. However, the added benefits often make it a worthwhile investment.
+
+Learn more about AI Chat:
+Ideas for chatting with the AI 💭
+Strengths 🦾
+Weaknesses 📌
+DeepAI
+contact
+press
+legal
+
+
