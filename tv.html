@@ -29,56 +29,48 @@
         </center>
         <hr />
         <center>
-            <input id="searchbar" onkeyup="search_video()" type="text" name="search" placeholder="Search videos...">
-            <br />
-            <div class="Movie">
-                <a href="" width="340" height="195">
-                    <img src="" width="340" height="195">
-                </a>
-                <p>Description</p>
-            </div>
-            <div class="Movie">
-                <a href="#" onclick="openFileInIframe('')">
-                    <img src="" width="340" height="195">
-                </a>
-                <p>Description</p>
-            </div>
-            <div class="Movie">
-                <a href="#" onclick="openFileInIframe('')">
-                    <img src="" width="340" height="195">
-                </a>
-                <p>Description</p>
-            </div>
-            <div class="Movie">
-                <a href="#" onclick="openFileInIframe('')">
-                    <img src="" width="340" height="195">
-                </a>
-                <p>Description</p>
-            </div>
-            <div class="Movie">
-                <a href="#" onclick="openFileInIframe('')">
-                    <img src="" width="340" height="195">
-                </a>
-                <p>Description</p>
-            </div>
-            <div class="Movie">
-                <a href="#" onclick="openFileInIframe('')">
-                    <img src="" width="340" height="195">
-                </a>
-                <p>Description</p>
-            </div>
-            <div class="Movie">
-                <a href="#" onclick="openFileInIframe('')">
-                    <img src="" width="340" height="195">
-                </a>
-                <p>Description</p>
-            </div>
-            <div class="Movie">
-                <a href="#" onclick="openFileInIframe('')">
-                    <img src="" width="340" height="195">
-                </a>
-                <p>Description</p>
-            </div>
+            <div id="movieContainer"></div>
+            <script>
+                const movies = [
+                    {
+                        title: "Movie 1",
+                        imageUrl: "https://example.com/movie1.jpg",
+                        description: "Description for Movie 1"
+                    },
+                    {
+                        title: "Movie 2",
+                        imageUrl: "https://example.com/movie2.jpg",
+                        description: "Description for Movie 2"
+                    },
+                    // Add more movie objects as needed
+                ];
+        
+                const container = document.getElementById("movieContainer");
+        
+                movies.forEach(movie => {
+                    const movieDiv = document.createElement("div");
+                    movieDiv.className = "Movie";
+        
+                    const link = document.createElement("a");
+                    link.href = movie.title; // You can set the link here
+                    link.width = "340";
+                    link.height = "195";
+        
+                    const image = document.createElement("img");
+                    image.src = movie.imageUrl;
+                    image.width = "340";
+                    image.height = "195";
+        
+                    link.appendChild(image);
+                    movieDiv.appendChild(link);
+        
+                    const description = document.createElement("p");
+                    description.textContent = movie.description;
+                    movieDiv.appendChild(description);
+        
+                    container.appendChild(movieDiv);
+                });
+            </script>
             <script>
             function search_video() {
                 let input = document.getElementById('searchbar').value
