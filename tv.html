@@ -29,7 +29,7 @@
         </center>
         <hr />
         <center>
-            <input id="searchbar" onkeyup="search_video()" type="text" name="search" placeholder="Find Movies...">
+            <input id="searchbar" onkeyup="search_video()" type="text" name="search" placeholder="Find Movies">
             <br />
             <div id="movieContainer"></div>
             <script>
@@ -53,13 +53,11 @@
                     const movieDiv = document.createElement("div");
                     movieDiv.className = "Movie";
         
-                    const link = document.createElement("a");
-                    link.href = movie.title; 
-        
                     const image = document.createElement("img");
                     image.src = movie.imageUrl;
                     image.width = "340";
                     image.height = "195";
+                    image.onclick = "openFileInIframe(movie.title)"
         
                     link.appendChild(image);
                     movieDiv.appendChild(link);
