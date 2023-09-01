@@ -33,14 +33,14 @@
             <script>
                 const movies = [
                     {
-                        title: "Movie 1",
-                        imageUrl: "https://example.com/movie1.jpg",
-                        description: "Description for Movie 1"
+                        title: "https://archive.org/download/HallwaystockFootage/Hallway2012.mp4",
+                        imageUrl: "https://archive.org/download/HallwaystockFootage/HallwaystockFootage.thumbs/Hallway2012_000001.jpg",
+                        description: "Hallway"
                     },
                     {
-                        title: "Movie 2",
-                        imageUrl: "https://example.com/movie2.jpg",
-                        description: "Description for Movie 2"
+                        title: "https://archive.org/download/27EG-28-EG-58_HOTRODS/27EG-28-EG-58_HOTRODS.mp4",
+                        imageUrl: "https://archive.org/download/27EG-28-EG-58_HOTRODS/27EG-28-EG-58_HOTRODS.thumbs/27EG-28-EG-58_HOTRODS_000147.jpg",
+                        description: "Hot Rods 1940s"
                     },
                     // Add more movie objects as needed
                 ];
@@ -52,9 +52,7 @@
                     movieDiv.className = "Movie";
         
                     const link = document.createElement("a");
-                    link.href = movie.title; // You can set the link here
-                    link.width = "340";
-                    link.height = "195";
+                    link.href = movie.title; 
         
                     const image = document.createElement("img");
                     image.src = movie.imageUrl;
