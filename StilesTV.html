@@ -2,59 +2,50 @@
     <html>
         <head>
             <title>Stiles TV</title>
-           
-           
-           <!-- linking the stylesheet(CSS) -->
-    <link rel="stylesheet" type="text/css" href="./style.css">
-
-           
-           
-           
-           <style>
-            
-            .searchbar{
-                font-size: 20px;
-
-            }
-            .Movie{
-                display: inline-block;
-            }
-         
-            margin-left: 15%;
-    padding:15px;
-    border-radius: 10px;
-  }
-
-  input[type=text] {
-     width: 30%;
-     -webkit-transition: width 0.15s ease-in-out;
-     transition: width 0.15s ease-in-out;
-  }
-
-  /* When the input field gets focus,
-       change its width to 100% */
-  input[type=text]:focus {
-    width: 70%;
-  }
-
- #list{
-   font-size:  1.5em;
-   margin-left: 90px;
-  }
-
-.animals{
-  display: list-item;    }
-           
-           
-           
-           
-           
-           
-           </style>
         </head>
-        <body>
+        
+            <style>#searchbar{
+                margin-left: 15%;
+                padding:15px;
+                border-radius: 10px;
+              }
             
-            <center><input class="searchbar" placeholder="Search" type="text"></center></br>
+              input[type=text] {
+                 width: 30%;
+                 -webkit-transition: width 0.15s ease-in-out;
+                 transition: width 0.15s ease-in-out;
+              }
+            
+              /* When the input field gets focus,
+                   change its width to 100% */
+              input[type=text]:focus {
+                width: 70%;
+              }
+            
+             #list{
+               font-size:  1.5em;
+               margin-left: 90px;
+              }
+            
+            .animals{
+              display: list-item;    
+             } </style>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            </head>
+
+
+
+        <body>
             <script> function search_animal() {
                 let input = document.getElementById('searchbar').value
                 input=input.toLowerCase();
@@ -81,33 +72,30 @@
             
                 <!-- input tag -->
                 <input id="searchbar" onkeyup="search_animal()" type="text"
-                    name="search" placeholder="Search animals..">
+                    name="search" placeholder="Find Movies">
                   
                 <!-- ordered list -->
-                <ol id='list'>
-                    <li class="animals">Cat</li>
-                    <li class="animals">Dog</li>
-                    <li class="animals">Elephant</li>
-                    <li class="animals">Fish</li>
-                    <li class="animals">Gorilla</li>
-                    <li class="animals">Monkey</li>
-                    <li class="animals">Turtle</li>
-                    <li class="animals">Whale</li>
-                    <li class="animals">Aligator</li>
-                    <li class="animals">Donkey</li>
-                    <li class="animals">Horse</li>
+                <ol id='list'></ol>
+                   
+                    <li class="animals">Terminator<video width="500px" height="500px" controls="controls">
+                        <source src="matrix.mp4" type="video/mp4" /></li>
+                    <li class="animals">The Goonies<video width="500px" height="500px" controls="controls">
+                        <source src="matrix.mp4" type="video/mp4" /></li>
+                    <li class="animals">Shrek<video width="500px" height="500px" controls="controls">
+                        <source src="matrix.mp4" type="video/mp4" /></li>
+                    <li class="animals">Up<video width="500px" height="500px" controls="controls">
+                        <source src="matrix.mp4" type="video/mp4" /></li>
+                    <li class="animals">Harry Potter<video width="500px" height="500px" controls="controls">
+                        <source src="matrix.mp4" type="video/mp4" /></li>
+                    <li class="animals">Karate Kid<video width="500px" height="500px" controls="controls">
+                        <source src="matrix.mp4" type="video/mp4" /></li>
+                    <li class="animals">Ferris Bueller<video width="500px" height="500px" controls="controls">
+                        <source src="matrix.mp4" type="video/mp4" /></li>
                 </ol>
                   
                 <!-- linking javascript -->
                 <script src="./animals.js"></script>
-       
-       
-       
-       
-       
-       
-       
-       
-       
-        </body>    
-    </html>
+              
+        </body>  
+           
+          </html>
