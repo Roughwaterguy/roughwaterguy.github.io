@@ -1,102 +1,100 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <title>(CCSTV)</title>
-        <style>
-            body{
-                background-color: darkcyan;
-            }
-            .header{
-                background-image: url('https://thumbs.dreamstime.com/b/retro-s-seamless-pattern-background-vintage-memphis-fashion-style-illustration-ideal-fabric-design-paper-print-website-57384131.jpg');
-                color: orangered;
-                font-size: 80px;
-            }
-            .Movie{
-                display: inline-block;
-            }
-        </style>
-    </head>
+<head>
+    <title>(CCSTV)</title>
+    <style>
+        body {
+            background-color: darkcyan;
+        }
 
-    <body>
-        <center>
-            <table class="header">
-                <tr>
-                    <td><img src="https://media3.giphy.com/media/oQPswLDhl15PG/200w.gif?cid=6c09b9524nv2ptryy0yu8pqwsnq1cwi2lrsc9g03832hrxgp&ep=v1_gifs_search&rid=200w.gif&ct=g"></td>
-                    <td><b>CCSTV</b></td>
-                </tr>
-            </table>
-        </center>
-        <hr />
-        <center>
-            <input id="searchbar" onkeyup="search_video()" type="text" name="search" placeholder="Find Movies">
-            <br />
-            <div id="movieContainer"></div>
-            <script>
-                const movies = [
-                    {
-                        title: "https://archive.org/download/HallwaystockFootage/Hallway2012.mp4",
-                        imageUrl: "https://archive.org/download/HallwaystockFootage/HallwaystockFootage.thumbs/Hallway2012_000001.jpg",
-                        description: "Hallway"
-                    },
-                    {
-                        title: "https://archive.org/download/27EG-28-EG-58_HOTRODS/27EG-28-EG-58_HOTRODS.mp4",
-                        imageUrl: "https://archive.org/download/27EG-28-EG-58_HOTRODS/27EG-28-EG-58_HOTRODS.thumbs/27EG-28-EG-58_HOTRODS_000147.jpg",
-                        description: "Hot Rods 1940s"
-                    },
-                    // Add more movie objects as needed
-                ];
-        
-                const container = document.getElementById("movieContainer");
-        
-                movies.forEach(movie => {
-                    const movieDiv = document.createElement("div");
-                    movieDiv.className = "Movie";
-        
-                    const image = document.createElement("img");
-                    image.src = movie.imageUrl;
-                    image.width = "340";
-                    image.height = "195";
-                    image.onclick = "openFileInIframe(movie.title)"
-        
-                    link.appendChild(image);
-                    movieDiv.appendChild(link);
-        
-                    const description = document.createElement("p");
-                    description.textContent = movie.description;
-                    movieDiv.appendChild(description);
-        
-                    container.appendChild(movieDiv);
-                });
-            </script>
-            <script>
+        .header {
+            background-image: url('https://thumbs.dreamstime.com/b/retro-s-seamless-pattern-background-vintage-memphis-fashion-style-illustration-ideal-fabric-design-paper-print-website-57384131.jpg');
+            color: orangered;
+            font-size: 80px;
+        }
+
+        .Movie {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <table class="header">
+            <tr>
+                <td><img
+                        src="https://media3.giphy.com/media/oQPswLDhl15PG/200w.gif?cid=6c09b9524nv2ptryy0yu8pqwsnq1cwi2lrsc9g03832hrxgp&ep=v1_gifs_search&rid=200w.gif&ct=g">
+                </td>
+                <td><b>CCSTV</b></td>
+            </tr>
+        </table>
+    </center>
+    <hr />
+    <center>
+        <input id="searchbar" onkeyup="search_video()" type="text" name="search" placeholder="Find Movies">
+        <br />
+        <div id="movieContainer"></div>
+        <script>
+            const movies = [
+                {
+                    title: "https://archive.org/download/HallwaystockFootage/Hallway2012.mp4",
+                    imageUrl: "https://archive.org/download/HallwaystockFootage/HallwaystockFootage.thumbs/Hallway2012_000001.jpg",
+                    description: "Hallway"
+                },
+                {
+                    title: "https://archive.org/download/27EG-28-EG-58_HOTRODS/27EG-28-EG-58_HOTRODS.mp4",
+                    imageUrl: "https://archive.org/download/27EG-28-EG-58_HOTRODS/27EG-28-EG-58_HOTRODS.thumbs/27EG-28-EG-58_HOTRODS_000147.jpg",
+                    description: "Hot Rods 1940s"
+                },
+                // Add more movie objects as needed
+            ];
+
+            const container = document.getElementById("movieContainer");
+
+            movies.forEach(movie => {
+                const movieDiv = document.createElement("div");
+                movieDiv.className = "Movie";
+
+                const image = document.createElement("img");
+                image.src = movie.imageUrl;
+                image.width = "340";
+                image.height = "195";
+                image.onclick = function () {
+                    openFileInIframe(movie.title);
+                };
+
+                movieDiv.appendChild(image);
+
+                const description = document.createElement("p");
+                description.textContent = movie.description;
+                movieDiv.appendChild(description);
+
+                container.appendChild(movieDiv);
+            });
+
             function search_video() {
                 let input = document.getElementById('searchbar').value
-                input=input.toLowerCase();
+                input = input.toLowerCase();
                 let x = document.getElementsByClassName('Movie');
-                  
-                for (i = 0; i < x.length; i++) { 
+
+                for (i = 0; i < x.length; i++) {
                     if (!x[i].innerHTML.toLowerCase().includes(input)) {
-                        x[i].style.display="none";
-                    }
-                    else {
-                        x[i].style.display="inline-block";                 
+                        x[i].style.display = "none";
+                    } else {
+                        x[i].style.display = "inline-block";
                     }
                 }
             }
 
             function openFileInIframe(filePath) {
-                //create a new tab
                 let tab = window.open('', '_blank');
-
-                //write the iframe code into the new tab
                 tab.document.write('<iframe src="' + filePath + '" width="100%" height="100%"></iframe>');
-  
-                //close the document to make the iframe code take effect
                 tab.document.close();
             }
-            </script>
-        </center>
-    </body>
+        </script>
+    </center>
+</body>
 
 </html>
