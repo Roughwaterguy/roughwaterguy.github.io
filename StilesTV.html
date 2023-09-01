@@ -5,7 +5,6 @@
         </head>
         
             <style>#searchbar{
-                margin-left: 15%;
                 padding:15px;
                 border-radius: 10px;
               }
@@ -31,7 +30,19 @@
               display: list-item;    
               text-shadow: gray;
              
-             } </style>
+             } 
+             .header{
+                font-size: larger;
+                font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+                color:white;
+
+
+             }
+             
+             
+             
+             
+             </style>
             
             
             
@@ -70,12 +81,18 @@
             
             
             <center>
+            <div style= "background-color: darkred;display:flex;flex-direction: row;position:fixed;"
+            >
+                <div class="header">
+<!-- input tag -->
+<input id="searchbar" onkeyup="search_animal()" type="text"
+name="search" placeholder="Find Movies">
+
+                </div>
+                <div class="header"><p>StilesTv</p></div>
+            </div>
             
-            
-                <!-- input tag -->
-                <input id="searchbar" onkeyup="search_animal()" type="text"
-                    name="search" placeholder="Find Movies">
-                  
+                
                 <!-- ordered list -->
                 <ol id='list'></ol>
                    
