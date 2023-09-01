@@ -2,136 +2,192 @@
 <html>
 
 <head>
-    <title>(CCSTV)</title>
-    <style>
-        body {
-            background-color: darkcyan;
-        }
+  <title>(CCSTV)</title>
+  <style>
+    body {
+      background-color: darkcyan;
+    }
 
-        .header {
-            background-image: url('https://thumbs.dreamstime.com/b/retro-s-seamless-pattern-background-vintage-memphis-fashion-style-illustration-ideal-fabric-design-paper-print-website-57384131.jpg');
-            color: orangered;
-            font-size: 80px;
-        }
+    .header {
+      background-image: url('https://thumbs.dreamstime.com/b/retro-s-seamless-pattern-background-vintage-memphis-fashion-style-illustration-ideal-fabric-design-paper-print-website-57384131.jpg');
+      color: orangered;
+      font-size: 80px;
+    }
 
-        .Movie {
-            display: inline-block;
-            padding: 5px;
-        }
-        #searchbar{
-            padding: 5px;
-        }
-    </style>
+    .Movie {
+      display: inline-block;
+      padding: 5px;
+    }
+
+    #searchbar {
+      padding: 5px;
+    }
+  </style>
 </head>
 
 <body>
-    <center>
-        <table class="header">
-            <tr>
-                <td><img
-                        src="https://media3.giphy.com/media/oQPswLDhl15PG/200w.gif?cid=6c09b9524nv2ptryy0yu8pqwsnq1cwi2lrsc9g03832hrxgp&ep=v1_gifs_search&rid=200w.gif&ct=g">
-                </td>
-                <td><b>CCSTV</b></td>
-            </tr>
-        </table>
-    </center>
-    <hr />
-    <center>
-        <input id="searchbar" onkeyup="search_video()" type="text" name="search" placeholder="Find Movies">
-        <br />
-        <div id="movieContainer"></div>
-        <br />
-        <p>Created by Trenton Stiles and Cole Caldwell</p>
-        <script>
-            const movies = [
-                {
-                    title: "https://archive.org/download/HallwaystockFootage/Hallway2012.mp4",
-                    imageUrl: "https://archive.org/download/HallwaystockFootage/HallwaystockFootage.thumbs/Hallway2012_000001.jpg",
-                    description: "Hallway"
-                },
-                {
-                    title: "https://archive.org/download/27EG-28-EG-58_HOTRODS/27EG-28-EG-58_HOTRODS.mp4",
-                    imageUrl: "https://archive.org/download/27EG-28-EG-58_HOTRODS/27EG-28-EG-58_HOTRODS.thumbs/27EG-28-EG-58_HOTRODS_000147.jpg",
-                    description: "Hot Rods 1940s"
-                },
-                {
-                    title: "https://archive.org/download/8_20230901/8.mp4",
-                    imageUrl: "https://archive.org/download/Terminator_201605/Terminator_201605.thumbs/Terminator%20%281984%29_000354.jpg",
-                    description: "The Terminator (1984)"
-                },
-                {
-                    title: "https://archive.org/download/t-2-ultimate-edition-with-original-ending-1/T2%20Ultimate%20Edition%20With%20Original%20Ending-1.mp4",
-                    imageUrl: "https://archive.org/download/t-2-ultimate-edition-with-original-ending-1/t-2-ultimate-edition-with-original-ending-1.thumbs/T2%20Ultimate%20Edition%20With%20Original%20Ending-1_000236.jpg",
-                    description: "Terminator 2 Judgement day"
-                },
-                {
-                    title: "https://archive.org/download/terminator-3-the-coming-storm/Terminator%203%20-%20The%20Coming%20Storm.mp4",
-                    imageUrl: "https://archive.org/download/terminator-3-the-coming-storm/terminator-3-the-coming-storm.thumbs/Terminator%203%20-%20The%20Coming%20Storm_000123.jpg",
-                    description: "Terminator 3 TCS"
-                },
-                {
-                    title: "https://archive.org/download/FightClub_201408/Fight%20Club.mp4",
-                    imageUrl: "https://archive.org/download/FightClub_201408/FightClub_201408.thumbs/Fight%20Club_001050.jpg",
-                    description: "Fight Club"
-                },
-                {
-                    title: "https://archive.org/download/theApeMan1943OriginaltonMitDeutschenUntertiteln/The_Ape_Man_1943_OT_dt_UT_1407kbps.avi",
-                    imageUrl: "https://archive.org/download/theApeMan1943OriginaltonMitDeutschenUntertiteln/The_Ape_Man_1943_OT_dt_UT_Titelbild.JPG",
-                    description: "The Apeman"
-                },
-                {
-                    title: "https://archive.org/download/14.-the-terrible-chase/14.%20The%20Terrible%20Chase.m4v",
-                    imageUrl: "https://archive.org/download/14.-the-terrible-chase/14.-the-terrible-chase.thumbs/14.%20The%20Terrible%20Chase_000179.jpg",
-                    description: "The Terrible Chase"
-                },
-                
-                // Add more movie objects as needed
-            ];
+  <center>
+    <table class="header">
+      <tr>
+        <td><img src="https://media3.giphy.com/media/oQPswLDhl15PG/200w.gif?cid=6c09b9524nv2ptryy0yu8pqwsnq1cwi2lrsc9g03832hrxgp&ep=v1_gifs_search&rid=200w.gif&ct=g">
+        </td>
+        <td><b>CCSTV</b></td>
+      </tr>
+    </table>
+  </center>
+  <hr />
+  <center>
+    <input id="searchbar" onkeyup="search_video()" type="text" name="search" placeholder="Find Movies">
+    <br />
+    <div id="movieContainer"></div>
+    <br />
+    <p>Created by Trenton Stiles and Cole Caldwell</p>
+    <script>
+      const movies = [{
+          title: "https://archive.org/download/HallwaystockFootage/Hallway2012.mp4",
+          imageUrl: "https://archive.org/download/HallwaystockFootage/HallwaystockFootage.thumbs/Hallway2012_000001.jpg",
+          description: "Hallway"
+        },
+        {
+          title: "https://archive.org/download/27EG-28-EG-58_HOTRODS/27EG-28-EG-58_HOTRODS.mp4",
+          imageUrl: "https://archive.org/download/27EG-28-EG-58_HOTRODS/27EG-28-EG-58_HOTRODS.thumbs/27EG-28-EG-58_HOTRODS_000147.jpg",
+          description: "Hot Rods 1940s"
+        },
+        {
+          title: "https://archive.org/download/8_20230901/8.mp4",
+          imageUrl: "https://archive.org/download/Terminator_201605/Terminator_201605.thumbs/Terminator%20%281984%29_000354.jpg",
+          description: "The Terminator (1984)"
+        },
+        {
+          title: "https://archive.org/download/t-2-ultimate-edition-with-original-ending-1/T2%20Ultimate%20Edition%20With%20Original%20Ending-1.mp4",
+          imageUrl: "https://archive.org/download/t-2-ultimate-edition-with-original-ending-1/t-2-ultimate-edition-with-original-ending-1.thumbs/T2%20Ultimate%20Edition%20With%20Original%20Ending-1_000236.jpg",
+          description: "Terminator 2 Judgement day"
+        },
+        {
+          title: "https://archive.org/download/terminator-3-the-coming-storm/Terminator%203%20-%20The%20Coming%20Storm.mp4",
+          imageUrl: "https://archive.org/download/terminator-3-the-coming-storm/terminator-3-the-coming-storm.thumbs/Terminator%203%20-%20The%20Coming%20Storm_000123.jpg",
+          description: "Terminator 3 TCS"
+        },
+        {
+          title: "https://archive.org/download/FightClub_201408/Fight%20Club.mp4",
+          imageUrl: "https://archive.org/download/FightClub_201408/FightClub_201408.thumbs/Fight%20Club_001050.jpg",
+          description: "Fight Club"
+        },
+        {
+          title: "https://archive.org/download/theApeMan1943OriginaltonMitDeutschenUntertiteln/The_Ape_Man_1943_OT_dt_UT_1407kbps.avi",
+          imageUrl: "https://archive.org/download/theApeMan1943OriginaltonMitDeutschenUntertiteln/The_Ape_Man_1943_OT_dt_UT_Titelbild.JPG",
+          description: "The Apeman"
+        },
+        {
+          title: "https://archive.org/download/14.-the-terrible-chase/14.%20The%20Terrible%20Chase.m4v",
+          imageUrl: "https://archive.org/download/14.-the-terrible-chase/14.-the-terrible-chase.thumbs/14.%20The%20Terrible%20Chase_000179.jpg",
+          description: "The Terrible Chase"
+        },
+        {
+          title: "https://archive.org/download/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/001%20-%20Peace%20and%20Quiet%2C%20Wanted%20Wade%2C%20Garfield%20Goes%20Hawaiian%20DVDRip%20XviD%20%5BPhZ%5D.mp4",
+          imageUrl: "https://ia803108.us.archive.org/34/items/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/__ia_thumb.jpg",
+          description: "001 - Peace and Quiet, Wanted Wade, Garfield Goes Hawaiian"
+        },
+        {
+          title: "https://archive.org/download/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/002%20-%20Box%20O%27%20Fun%2C%20Unidentified%20Flying%20Orson%2C%20School%20Daze%20DVDRip%20XviD%20%5BPhZ%5D.mp4",
+          imageUrl: "https://ia803108.us.archive.org/34/items/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/__ia_thumb.jpg",
+          description: "002 - Box O' Fun, Unidentified Flying Orson, School Daze"
+        },
+        {
+          title: "https://archive.org/download/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/003%20-%20Nighty%20Nightmare%2C%20Banana%20Nose%2C%20Ode%20to%20Odie%20DVDRip%20XviD%20%5BPhZ%5D.mp4",
+          imageUrl: "https://ia803108.us.archive.org/34/items/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/__ia_thumb.jpg",
+          description: "003 - Nighty Nightmare, Banana Nose, Ode to Odie"
+        },
+        {
+          title: "https://archive.org/download/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/004%20-%20Faidy%20Cat%2C%20Shell%20Shocked%20Sheldon%2C%20Nothing%20to%20Sneeze%20At%20DVDRip%20XviD%20%5BPhZ%5D.mp4",
+          imageUrl: "https://ia803108.us.archive.org/34/items/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/__ia_thumb.jpg",
+          description: "004 - Faidy Cat, Shell Shocked Sheldon, Nothing to Sneeze At"
+        },
+        {
+          title: "https://archive.org/download/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/005%20-%20Garfield%27s%20Moving%20Experience%2C%20Wade%20You%27re%20Afraid%2C%20Good%20Mousekeeping%20DVDRip%20XviD%20%5BPhZ%5D.mp4",
+          imageUrl: "https://ia803108.us.archive.org/34/items/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/__ia_thumb.jpg",
+          description: "005 - Garfield's Moving Experience, Wade You're Afraid, Good Mousekeeping"
+        },
+        {
+          title: "https://archive.org/download/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/006%20-%20Identity%20Crisis%2C%20The%20Bad%20Sport%2C%20Up%20a%20Tree%20DVDRip%20XviD%20%5BPhZ%5D.mp4",
+          imageUrl: "https://ia803108.us.archive.org/34/items/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/__ia_thumb.jpg",
+          description: "006 - Identity Crisis, The Bad Sport, Up a Tree"
+        },
+        {
+          title: "https://archive.org/download/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/007%20-%20Weighty%20Problem%2C%20The%20Worm%20Turns%2C%20Good%20Cat%20Bad%20Cat%20DVDRip%20XviD%20%5BPhZ%5D.mp4",
+          imageUrl: "https://ia803108.us.archive.org/34/items/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/__ia_thumb.jpg",
+          description: "007 - Weighty Problem, The Worm Turns, Good Cat Bad Cat"
+        },
+        {
+          title: "https://archive.org/download/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/008%20-%20Cabin%20Fever%2C%20Return%20of%20Power%20Pig%2C%20Fair%20Exchange%20DVDRip%20XviD%20%5BPhZ%5D.mp4",
+          imageUrl: "https://ia803108.us.archive.org/34/items/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/__ia_thumb.jpg",
+          description: "008 - Cabin Fever, Return of Power Pig, Fair Exchange"
+        },
+        {
+          title: "https://archive.org/download/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/009%20-%20The%20Binky%20Show%2C%20Keeping%20Cool%2C%20Don%27t%20Move%20DVDRip%20XviD%20%5BPhZ%5D.mp4",
+          imageUrl: "https://ia803108.us.archive.org/34/items/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/__ia_thumb.jpg",
+          description: "009 - The Binky Show, Keeping Cool, Don't Move"
+        },
+        {
+          title: "https://archive.org/download/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/010%20-%20Magic%20Mutt%2C%20Short%20Story%2C%20Monday%20Misery%20DVDRip%20XviD%20%5BPhZ%5D.mp4",
+          imageUrl: "https://ia803108.us.archive.org/34/items/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/__ia_thumb.jpg",
+          description: "010 - Magic Mutt, Short Story, Monday Misery"
+        },
+        {
+          title: "https://archive.org/download/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/011%20-%20Best%20of%20Breed%2C%20National%20Tapioca%20Pudding%20Day%2C%20All%20About%20Odie%20DVDRip%20XviD%20%5BPhZ%5D.mp4",
+          imageUrl: "https://ia803108.us.archive.org/34/items/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/__ia_thumb.jpg",
+          description: "011 - Best of Breed, National Tapioca Pudding Day, All About Odie"
+        },
+        {
+          title: "https://archive.org/download/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/012%20-%20Caped%20Avenger%2C%20Shy%20Fly%20Guy%2C%20Green%20Thumbs%20Down%20DVDRip%20XviD%20%5BPhZ%5D.mp4",
+          imageUrl: "https://ia803108.us.archive.org/34/items/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/__ia_thumb.jpg",
+          description: "012 - Caped Avenger, Shy Fly Guy, Green Thumbs Down"
+        },
+        {
+          title: "https://archive.org/download/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/013%20-%20Forget%20Me%20Not%2C%20I%20Like%20Having%20You%20Around%2C%20Sales%20Resistance%20DVDRip%20XviD%20%5BPhZ%5D.mp4",
+          imageUrl: "https://ia803108.us.archive.org/34/items/012capedavengershyflyguygreenthumbsdowndvdripxvidphz/__ia_thumb.jpg",
+          description: "013 - Forget Me Not, I Like Having You Around, Sales Resistance"
+        },
+        // Add more movie objects as needed
+      ];
+      const container = document.getElementById("movieContainer");
+      movies.forEach(movie => {
+        const movieDiv = document.createElement("div");
+        movieDiv.className = "Movie";
+        const image = document.createElement("img");
+        image.src = movie.imageUrl;
+        image.width = "340";
+        image.height = "195";
+        image.onclick = function() {
+          openFileInIframe(movie.title);
+        };
+        movieDiv.appendChild(image);
+        const description = document.createElement("p");
+        description.textContent = movie.description;
+        movieDiv.appendChild(description);
+        container.appendChild(movieDiv);
+      });
 
-            const container = document.getElementById("movieContainer");
+      function search_video() {
+        let input = document.getElementById('searchbar').value
+        input = input.toLowerCase();
+        let x = document.getElementsByClassName('Movie');
+        for (i = 0; i < x.length; i++) {
+          if (!x[i].innerHTML.toLowerCase().includes(input)) {
+            x[i].style.display = "none";
+          } else {
+            x[i].style.display = "inline-block";
+          }
+        }
+      }
 
-            movies.forEach(movie => {
-                const movieDiv = document.createElement("div");
-                movieDiv.className = "Movie";
-
-                const image = document.createElement("img");
-                image.src = movie.imageUrl;
-                image.width = "340";
-                image.height = "195";
-                image.onclick = function () {
-                    openFileInIframe(movie.title);
-                };
-
-                movieDiv.appendChild(image);
-
-                const description = document.createElement("p");
-                description.textContent = movie.description;
-                movieDiv.appendChild(description);
-
-                container.appendChild(movieDiv);
-            });
-
-            function search_video() {
-                let input = document.getElementById('searchbar').value
-                input = input.toLowerCase();
-                let x = document.getElementsByClassName('Movie');
-
-                for (i = 0; i < x.length; i++) {
-                    if (!x[i].innerHTML.toLowerCase().includes(input)) {
-                        x[i].style.display = "none";
-                    } else {
-                        x[i].style.display = "inline-block";
-                    }
-                }
-            }
-
-            function openFileInIframe(filePath) {
-                let tab = window.open('', '_blank');
-                tab.document.write('<iframe src="' + filePath + '" width="100%" height="100%"></iframe>');
-                tab.document.close();
-            }
-        </script>
-    </center>
+      function openFileInIframe(filePath) {
+        let tab = window.open('', '_blank');
+        tab.document.write('<iframe src="' + filePath + '" width="100%" height="100%"></iframe>');
+        tab.document.close();
+      }
+    </script>
+  </center>
 </body>
 
 </html>
