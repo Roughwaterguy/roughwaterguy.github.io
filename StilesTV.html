@@ -4,7 +4,12 @@
             <title>Stiles TV</title>
         </head>
         
-            <style>#searchbar{
+            <style>
+            
+            
+            
+            
+            #searchbar{
                 padding:15px;
                 border-radius: 10px;
               }
@@ -29,16 +34,32 @@
             .animals{
               display: list-item;    
               text-shadow: gray;
+              margin-top: 55px;
+              font-size: large;
+              font-weight: 100;
+
              
              } 
              .header{
                 font-size: larger;
                 font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
                 color:white;
+                font-weight: bolder;
 
 
              }
              
+             .Top{
+                width: max-content;
+                height: max-content;
+                background-color: darkred;
+                position: fixed;
+
+             }
+             .Stiles{
+                width: 300;
+                
+             }
              
              
              
@@ -81,15 +102,14 @@
             
             
             <center>
-            <div style= "background-color: darkred;display:flex;flex-direction: row;position:fixed;"
-            >
+                <div class="Top">
                 <div class="header">
 <!-- input tag -->
 <input id="searchbar" onkeyup="search_animal()" type="text"
 name="search" placeholder="Find Movies">
 
                 </div>
-                <div class="header"><p>StilesTv</p></div>
+                <div class="header"id="Stiles"><p>StilesTv</p></div>
             </div>
             
                 
