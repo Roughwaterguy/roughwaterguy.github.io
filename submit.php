@@ -3,7 +3,7 @@
   $email = $_POST['email'];
   $oth = $_POST['oth'];
   
-  $to = "s27.jcaldwell@sels.us";
+  $to = "roughwaterguy@gmail.com";
   $subject = "Form emails";
   $body = $name . $email . $oth;
   
