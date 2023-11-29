@@ -15,6 +15,9 @@
         #embedded-content {
             width: 900px;
             height: 520px;
+            color: rgb(27, 180, 11);
+            background-color: black;
+            border: 3px solid rgb(27, 180, 11);
         }
 
         #fullscreen-button {
@@ -34,6 +37,17 @@
             width: 80%;
             padding: 10px;
             margin: 10px;
+            color: rgb(27, 180, 11);
+            background-color: black;
+            border: 3px solid rgb(27, 180, 11)
+        }
+
+        #search-button {
+            width: 100px;
+            height: 40px;
+            color: rgb(27, 180, 11);
+            background-color: black;
+            border: 3px solid rgb(27, 180, 11)
         }
     </style>
 </head>
@@ -42,19 +56,21 @@
         <table class="main">
             <tr>
                 <td>
-                    <p style="text-align: center; font-size: 60px;">SUPERS34RCH</p>
+                    <center>
+                        <img src="https://github.com/Roughwaterguy/roughwaterguy.github.io/blob/main/ss.png?raw=true">
+                    </center>
                 </td>
             </tr>
             <tr>
                 <td>
                     <button id="fullscreen-button" onclick="toggleFullscreen()">F</button>
-                    <iframe id="embedded-content" src="https://www.example.com" frameborder="0" allowfullscreen></iframe>
+                    <iframe id="embedded-content" src="https://" frameborder="0" allowfullscreen></iframe>
                 </td>
             </tr>
             <tr>
                 <td>
                     <input type="text" id="search-bar" placeholder="Enter URL" />
-                    <button onclick="search()">Search</button>
+                    <button id="search-button" onclick="search()">Search</button>
                 </td>
             </tr>
         </table>
