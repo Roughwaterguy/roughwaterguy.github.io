@@ -8,6 +8,9 @@
                 margin-top: 0px;
                 margin-bottom: opx;
             }
+            .lat:hover{
+                background-color: crimson;
+            }
         </style>
     </head>
     <body>
@@ -18,21 +21,24 @@
     <br />
     <h2>Latest</h2>
     <ol>
-        <li onclick="scrollToSection('section1')">Attempting to build a 1mhz transceiver</li>
-        <li onclick="scrollToSection('section2')">Useful software for any walkie-talkie</li>
-        <li onclick="scrollToSection('section3')">Barbeque lighter transmitter?</li>
+        <li class="lat" onclick="scrollToSection('section1')">Attempting to build a 1mhz transceiver</li>
+        <li class="lat" onclick="scrollToSection('section2')">Useful software for any walkie-talkie</li>
+        <li class="lat" onclick="scrollToSection('section3')">Barbeque lighter transmitter?</li>
     </ol>
     <br />
     <section id="section1">
         <h2>Attempting to build a 1mhz transceiver</h2>
+        <p><img src=""></p>
     </section>
     <hr />
     <section id="section2">
         <h2>Useful software for any walkie-talkie</h2>
+        <p><img src=""></p>
     </section>
     <hr />
     <section id="section3">
         <h2>Barbeque lighter transmitter?</h2>
+        <p><img src=""></p>
     </section>
     <script>
         function scrollToSection(sectionId) {
