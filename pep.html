@@ -13,14 +13,24 @@
     canvas {
       display: block;
     }
+
+    #score {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 20px;
+      color: white;
+    }
   </style>
 </head>
 <body>
 <h1>Coke Destroyer</h1>
+<canvas id="gameCanvas"></canvas>
+<div id="score"></div>
+
 <script>
-  const canvas = document.createElement("canvas");
+  const canvas = document.getElementById("gameCanvas");
   const ctx = canvas.getContext("2d");
-  document.body.appendChild(canvas);
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
@@ -48,13 +58,20 @@
   const enemies = [];
   let score = 0;
 
+  function increaseDifficulty() {
+    return {
+      speed: Math.max(2, Math.min(5, Math.floor(score / 10))),
+      spawnRate: Math.max(0.02, Math.min(0.2, score / 1000)),
+    };
+  }
+
   canvas.addEventListener("click", (e) => {
     const angle = Math.atan2(e.clientY - tank.y, e.clientX - tank.x);
 
     projectiles.push({
       x: tank.x,
       y: tank.y,
-      size: 5,
+      size: 10,
       img: projectileImg,
       speed: 7,
       angle: angle,
@@ -84,12 +101,14 @@
         break;
     }
 
+    const difficulty = increaseDifficulty();
+
     enemies.push({
       x,
       y,
-      size: 20,
+      size: 50,
       img: enemyImg,
-      speed: 2,
+      speed: difficulty.speed,
     });
   }
 
@@ -129,10 +148,7 @@
       const distance = Math.hypot(tank.x - enemy.x, tank.y - enemy.y);
       if (distance < tank.width / 2 + enemy.size / 2) {
         // Game over
-        draw();
-        ctx.fillStyle = "black";
-        ctx.font = "30px Arial";
-        ctx.fillText("Game Over! Your Score: " + score, canvas.width / 4, canvas.height / 2);
+        updateScoreText();
         resetGame();
       }
 
@@ -147,7 +163,7 @@
       }
     });
 
-    if (Math.random() < 0.02) {
+    if (Math.random() < increaseDifficulty().spawnRate) {
       spawnEnemy();
     }
   }
@@ -177,7 +193,13 @@
     ctx.fillText("Score: " + score, 20, 30);
   }
 
+  function updateScoreText() {
+    const scoreText = document.getElementById("score");
+    scoreText.textContent = "Last Score: " + score;
+  }
+
   function resetGame() {
+    updateScoreText();
     tank.x = canvas.width / 2;
     tank.y = canvas.height / 2;
     projectiles.length = 0;
