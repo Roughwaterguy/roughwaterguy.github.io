@@ -18,10 +18,20 @@
     <br />
     <h2>Latest</h2>
     <ol>
-        <li>Attempting to build a 1mhz transceiver</li>
-        <li>Useful software for any walkie-talkie</li>
-        <li>barbeque lighter transmitter?</li>
+        <li onclick="scrollToSection('section1')">Attempting to build a 1mhz transceiver</li>
+        <li onclick="scrollToSection('section2')">Useful software for any walkie-talkie</li>
+        <li onclick="scrollToSection('section3')">Barbeque lighter transmitter?</li>
     </ol>
+    <br />
+    <section id="section1">
+        <h2>Attempting to build a 1mhz transceiver</h2>
+    </section>
+    <section id="section2">
+        <h2>Useful software for any walkie-talkie</h2>
+    </section>
+    <section id="section3">
+        <h2>Barbeque lighter transmitter?</h2>
+    </section>
     <script>
         function scrollToSection(sectionId) {
           document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
