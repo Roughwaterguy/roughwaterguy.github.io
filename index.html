@@ -18,6 +18,12 @@
         background-image: url('mainbac.jpg');
       }
 
+      #main{
+        position: relative;
+        top: 20px;
+        left: 230px;
+      }
+
       #blogt:hover {
         color: orangered;
       }
@@ -26,14 +32,30 @@
         animation: spin .5s linear infinite;
       }
 
+      #nomac {
+        position: relative;
+        top: 40px;
+        left: 310px;
+      }
+
       #nomac:active {
         content: url('explosiongross.gif');
+      }
+
+      #rado {
+        position: relative;
+        top: 1px;
+        left: 400;
+      }
+
+      #rado:hover{
+        background-color: orangered;
       }
     </style>
   </head>
 
   <body>
-    <center>
+    <div id="main">
       <table>
         <tr>
           <td colspan="2"><img src="stoner.png" width="90px"><br /><a href="rock.html">rock</a></td>
@@ -54,9 +76,10 @@
           </td>
         </tr>
       </table>
-      <br />
-      <img id="nomac" src="macspin.gif">
-    </center>
+    </div>
+    <br />
+    <a href="radio.html"><img id="rado" src="radio-shack-1165.gif"></a>
+    <img id="nomac" src="macspin.gif" width="150px" height="40px">
   </body>
 
 </html>
