@@ -1,105 +1,156 @@
 <!DOCTYPE html>
-<html>
-
-  <head>
-    <title>RWGHOME</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Diagram with Curved Arrows</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
     <style>
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
-
-        100% {
-          transform: rotate(360deg);
+        .link {
+            fill: none;
+            stroke-opacity: 0.6;
         }
-      }
-
-      body {
-        background-image: url('mainbac.jpg');
-      }
-
-      #main{
-        position: relative;
-        top: 20px;
-        left: 230px;
-      }
-
-      #blogt:hover {
-        color: orangered;
-      }
-
-      #peps:hover {
-        animation: spin .5s linear infinite;
-      }
-
-      #nomac {
-        position: relative;
-        top: 40px;
-        left: 310px;
-      }
-
-      #nomac:active {
-        content: url('explosiongross.gif');
-      }
-
-      #rado {
-        position: relative;
-        top: 1px;
-        left: 400;
-      }
-
-      #rado:hover{
-        background-color: orangered;
-      }
-      #visits{
-        position: relative;
-        top: 20px;
-        left: 800px;
-      }
-      #duck{
-        position: relative;
-        top: 30px;
-        left: 350;
-      }
+        .label {
+            font-size: 14px; /* Larger text */
+            fill: black;
+            stroke: white;
+            stroke-width: 0.5px;
+            text-anchor: start; /* Aligns the text to the left of its starting position */
+            dominant-baseline: middle;
+        }
+        .arrowhead {
+            fill: #999; /* Default arrow color */
+        }
     </style>
-  </head>
+</head>
+<body>
+    <svg width="960" height="600"></svg>
+    <script>
+        // Select the SVG container and set dimensions
+        const svg = d3.select("svg"),
+            width = +svg.attr("width"),
+            height = +svg.attr("height");
 
-  <body>
-    <div id="main">
-      <table>
-        <tr>
-          <td colspan="2"><img src="stoner.png" width="90px"><br /><a href="rock.html">rock</a></td>
-          <td colspan="2"><img src="tv.gif" width="90px"><br /><a href="tv.html">tv</a></td>
-          <td><img src="artist_paint_md_wht.gif" width="90px"><br /><a href="galler.html"><button style="background-color: orangered; color: blue;">gallery</button></a></td>
-        </tr>
-        <tr>
-          <td><img src="img/psychic.png" width="90px"><br /><a href="phys.html"><button style="background-color: purple; color: red;">psychic</button></a></td>
-          <td colspan="5"><img src="rwgs.png" width="400px"></td>
-          <td style="background-image: url('blos.jpg'); background-size: cover;" width="120px"><a href="blogn.html">
-              <h2 id="blogt">BLOG</h2>
-            </a></td>
-        </tr>
-        <tr>
-          <td><a href="pep.html"><img src="img/pepsi.gif" id="peps"></a></td>
-          <td colspan="3">
-            <h1 style="text-shadow: 2px 2px 7px rgba(69, 51, 228, 0.497);"><i>Home Page</h1></i>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <br />
-    <a href="radio.html"><img id="rado" src="radio-shack-1165.gif"></a>
-    <img id="nomac" src="macspin.gif" width="150px" height="40px">
-    <div id="visits">
-      <script type="text/javascript" src="https://www.counters-free.net/count/dzpo"></script><br>
-        <a href='http://www.freevisitorcounters.com'>on freevisitorcounters.com</a> <script type='text/javascript' src='https://www.whomania.com/ctr?id=027a8f2b61742c7ac5a15c5dfb8d397d6bf9511a'></script>
-    </div>
-    <div id="duck">
-      <a href="duck.html">
-        <img src="duck.gif">
-      </a>
-    </div>
-    
-  </body>
+        // Define graph data (nodes and links)
+        const graph = {
+            nodes: [
+                { id: "Google", url: "https://www.google.com" },
+                { id: "Apple", url: "https://www.apple.com" },
+                { id: "Microsoft", url: "https://www.microsoft.com" },
+                { id: "Samsung", url: "https://www.samsung.com" },
+            ],
+            links: [
+                { source: "Google", target: "Apple", color: "red" },
+                { source: "Apple", target: "Microsoft", color: "blue" },
+                { source: "Microsoft", target: "Samsung", color: "green" },
+                { source: "Samsung", target: "Google", color: "orange" },
+            ]
+        };
 
+        // Define the simulation
+        const simulation = d3.forceSimulation(graph.nodes)
+            .force("link", d3.forceLink(graph.links).id(d => d.id).distance(200))
+            .force("charge", d3.forceManyBody().strength(-500))
+            .force("center", d3.forceCenter(width / 2, height / 2));
+
+        // Add arrow markers for links
+        svg.append("defs").selectAll("marker")
+            .data(graph.links)
+            .join("marker")
+            .attr("id", (d, i) => `arrowhead-${i}`)
+            .attr("viewBox", "0 -5 10 10")
+            .attr("refX", 15)
+            .attr("refY", 0)
+            .attr("markerWidth", 6)
+            .attr("markerHeight", 6)
+            .attr("orient", "auto")
+            .attr("class", "arrowhead")
+            .style("fill", d => d.color) // Use link color for arrowheads
+            .append("path")
+            .attr("d", "M0,-5L10,0L0,5");
+
+        // Draw links with curved paths and arrowheads
+        const link = svg.append("g")
+            .attr("stroke-width", 1.5)
+            .selectAll("path")
+            .data(graph.links)
+            .join("path")
+            .attr("class", "link")
+            .attr("stroke", d => d.color)
+            .attr("fill", "none")
+            .attr("marker-end", (d, i) => `url(#arrowhead-${i})`);
+
+        // Draw nodes
+        const node = svg.append("g")
+            .attr("stroke", "#fff")
+            .attr("stroke-width", 1.5)
+            .selectAll("circle")
+            .data(graph.nodes)
+            .join("circle")
+            .attr("r", 5) // Smaller radius for nodes
+            .attr("fill", "black") // Black nodes
+            .call(drag(simulation));
+
+        // Add labels (text beside the nodes)
+        const label = svg.append("g")
+            .selectAll("text")
+            .data(graph.nodes)
+            .join("text")
+            .attr("class", "label")
+            .attr("x", 8) // Offset to the right of the node
+            .text(d => d.id)
+            .style("cursor", "pointer")
+            .on("click", (event, d) => {
+                window.open(d.url, "_blank");
+            });
+
+        // Update positions on tick
+        simulation.on("tick", () => {
+            link.attr("d", d => {
+                const dx = d.target.x - d.source.x;
+                const dy = d.target.y - d.source.y;
+                const dr = Math.sqrt(dx * dx + dy * dy) * 1.5; // Curvature
+                return `M${d.source.x},${d.source.y} A${dr},${dr} 0 0,1 ${d.target.x},${d.target.y}`;
+            });
+
+            node
+                .attr("cx", d => d.x)
+                .attr("cy", d => d.y);
+
+            label
+                .attr("x", d => d.x + 8) // Position text to the side of nodes
+                .attr("y", d => d.y);
+        });
+
+        // Drag behavior
+        function drag(simulation) {
+            function dragstarted(event, d) {
+                if (!event.active) simulation.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+            }
+
+            function dragged(event, d) {
+                d.fx = event.x;
+                d.fy = event.y;
+            }
+
+            function dragended(event, d) {
+                if (!event.active) simulation.alphaTarget(0);
+                d.fx = null;
+                d.fy = null;
+            }
+
+            return d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended);
+        }
+    </script>
+</body>
 </html>
