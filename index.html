@@ -39,16 +39,16 @@
         // Define graph data (nodes and links)
         const graph = {
             nodes: [
-                { id: "Google", url: "https://www.google.com" },
-                { id: "Apple", url: "https://www.apple.com" },
-                { id: "Microsoft", url: "https://www.microsoft.com" },
-                { id: "Samsung", url: "https://www.samsung.com" },
+                { id: "Home", url: "index.html" },
+                { id: "Gallery", url: "galler.html" },
+                { id: "Projects", url: "projects.html" },
+                { id: "Rocks", url: "rock.html" },
             ],
             links: [
-                { source: "Google", target: "Apple", color: "red" },
-                { source: "Apple", target: "Microsoft", color: "blue" },
-                { source: "Microsoft", target: "Samsung", color: "green" },
-                { source: "Samsung", target: "Google", color: "orange" },
+                { source: "Home", target: "Gallery", color: "red" },
+                { source: "Home", target: "Projects", color: "blue" },
+                { source: "Home", target: "Rocks", color: "green" },
+                { source: "Projects", target: "Radio", color: "blue" },
             ]
         };
 
