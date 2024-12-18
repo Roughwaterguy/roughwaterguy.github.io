@@ -1,166 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>rwg - Home</title>
-    <script src="https://d3js.org/d3.v6.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .link {
-            fill: none;
-            stroke-opacity: 0.6;
-        }
-        .label {
-            font-size: 14px; /* Larger text */
-            fill: black;
-            stroke: white;
-            stroke-width: 0.5px;
-            text-anchor: start; /* Aligns the text to the left of its starting position */
-        }
-        .arrowhead {
-            fill: #999; /* Default arrow color */
-        }
-    </style>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Roughwaterguy's Homepage</title>
 </head>
-<body>
-    <center>
-        <h1>Roughwaterguys Homepage</h1>
-        <br />
-        <svg width="950" height="550"></svg>
-        <br />
-        <p>Created by Roughwaterguy 2024</p>
-    </center>
-    <script>
-        // Select the SVG container and set dimensions
-        const svg = d3.select("svg"),
-            width = +svg.attr("width"),
-            height = +svg.attr("height");
 
-        // Define graph data (nodes and links)
-        const graph = {
-            nodes: [
-                { id: "Home", url: "index.html" },
-                { id: "Gallery", url: "galler.html" },
-                { id: "Projects", url: "projects.html" },
-                { id: "Rocks", url: "rock.html" },
-                { id: "Radio", url: "radio.html" },
-                { id: "Physic", url: "phys.html" },
-                { id: "Pepsi Game", url: "pep.html" },
-            ],
-            links: [
-                { source: "Home", target: "Gallery", color: "red" },
-                { source: "Home", target: "Projects", color: "blue" },
-                { source: "Home", target: "Rocks", color: "green" },
-                { source: "Projects", target: "Radio", color: "blue" },
-                { source: "Rocks", target: "Physic", color: "green"},
-                { source: "Rocks", target: "Pepsi Game", color: "green"},
-            ]
-        };
+<body bgcolor="#000000">
 
-        // Define the simulation
-        const simulation = d3.forceSimulation(graph.nodes)
-            .force("link", d3.forceLink(graph.links).id(d => d.id).distance(75))
-            .force("charge", d3.forceManyBody().strength(-500))
-            .force("center", d3.forceCenter(width / 2, height / 2));
+<h1><span style="background-color: #00FF00">Roughwaterguy's Homepage</span></h1>
+<p>&nbsp;</p>
+<h2><font color="#00FF00">Important links</font></h2>
+<ul>
+	<li><a href="ongo.html"><font color="#00FF00">Ongoing projects</font></a></li>
+	<li><a href="https://www.youtube.com/@palladiumpigeon">
+	<font color="#00FF00">Youtube Channel</font></a></li>
+</ul>
+<h2><font color="#00FF00">Fun and Games</font></h2>
+<ul>
+	<li><a href="rock.html"><font color="#00FF00">Rocks</font></a></li>
+	<li><a href="pep.html"><font color="#00FF00">Pepsi is better</font></a></li>
+	<li><a href="phys.html"><font color="#00FF00">Physic</font></a></li>
+</ul>
 
-        // Add arrow markers for links
-        svg.append("defs").selectAll("marker")
-            .data(graph.links)
-            .join("marker")
-            .attr("id", (d, i) => `arrowhead-${i}`)
-            .attr("viewBox", "0 -5 10 10")
-            .attr("refX", 15)
-            .attr("refY", 0)
-            .attr("markerWidth", 6)
-            .attr("markerHeight", 6)
-            .attr("orient", "auto")
-            .attr("class", "arrowhead")
-            .style("fill", d => d.color) // Use link color for arrowheads
-            .append("path")
-            .attr("d", "M0,-5L10,0L0,5");
-
-        // Draw links with curved paths and arrowheads
-        const link = svg.append("g")
-            .attr("stroke-width", 1.5)
-            .selectAll("path")
-            .data(graph.links)
-            .join("path")
-            .attr("class", "link")
-            .attr("stroke", d => d.color)
-            .attr("fill", "none")
-            .attr("marker-end", (d, i) => `url(#arrowhead-${i})`);
-
-        // Draw nodes
-        const node = svg.append("g")
-            .attr("stroke", "#fff")
-            .attr("stroke-width", 1.5)
-            .selectAll("circle")
-            .data(graph.nodes)
-            .join("circle")
-            .attr("r", 5) // Smaller radius for nodes
-            .attr("fill", "black") // Black nodes
-            .call(drag(simulation));
-
-        // Add labels (text beside the nodes)
-        const label = svg.append("g")
-            .selectAll("text")
-            .data(graph.nodes)
-            .join("text")
-            .attr("class", "label")
-            .attr("x", 8) // Offset to the right of the node
-            .text(d => d.id)
-            .style("cursor", "pointer")
-            .on("click", (event, d) => {
-                window.open(d.url, "_blank");
-            });
-
-        // Update positions on tick
-        simulation.on("tick", () => {
-            link.attr("d", d => {
-                const dx = d.target.x - d.source.x;
-                const dy = d.target.y - d.source.y;
-                const dr = Math.sqrt(dx * dx + dy * dy) * 1.5; // Curvature
-                return `M${d.source.x},${d.source.y} A${dr},${dr} 0 0,1 ${d.target.x},${d.target.y}`;
-            });
-
-            node
-                .attr("cx", d => d.x)
-                .attr("cy", d => d.y);
-
-            label
-                .attr("x", d => d.x + 8) // Position text to the side of nodes
-                .attr("y", d => d.y);
-        });
-
-        // Drag behavior
-        function drag(simulation) {
-            function dragstarted(event, d) {
-                if (!event.active) simulation.alphaTarget(0.3).restart();
-                d.fx = d.x;
-                d.fy = d.y;
-            }
-
-            function dragged(event, d) {
-                d.fx = event.x;
-                d.fy = event.y;
-            }
-
-            function dragended(event, d) {
-                if (!event.active) simulation.alphaTarget(0);
-                d.fx = null;
-                d.fy = null;
-            }
-
-            return d3.drag()
-                .on("start", dragstarted)
-                .on("drag", dragged)
-                .on("end", dragended);
-        }
-    </script>
 </body>
+
 </html>
