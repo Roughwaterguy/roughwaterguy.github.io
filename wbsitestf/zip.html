@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Zip File Viewer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+    <div id="dropZone" style="border: 2px dashed #ccc; padding: 20px; text-align: center;">
+        Drop a zip file here or click to select
+        <input type="file" id="fileInput" accept=".zip" style="display: none;">
+    </div>
+    <ul id="fileList"></ul>
+
+    <script>
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+
+        dropZone.addEventListener('click', () => fileInput.click());
+        dropZone.addEventListener('dragover', (e) => e.preventDefault());
+        dropZone.addEventListener('drop', handleFile);
+        fileInput.addEventListener('change', handleFile);
+
+        function handleFile(e) {
+            e.preventDefault();
+            const file = e.target.files?.[0] || e.dataTransfer?.files[0];
+            if (file && file.name.endsWith('.zip')) {
+                processZip(file);
+            } else {
+                alert('Please select a zip file.');
+            }
+        }
+
+        async function processZip(file) {
+            try {
+                const zip = new JSZip();
+                const contents = await zip.loadAsync(file);
+                fileList.innerHTML = '';
+                Object.keys(contents.files).forEach((filename) => {
+                    if (!contents.files[filename].dir) {
+                        const li = document.createElement('li');
+                        const a = document.createElement('a');
+                        a.textContent = filename;
+                        a.href = '#';
+                        a.onclick = (e) => {
+                            e.preventDefault();
+                            downloadFile(filename, contents.files[filename]);
+                        };
+                        li.appendChild(a);
+                        fileList.appendChild(li);
+                    }
+                });
+            } catch (error) {
+                console.error('Error processing zip file:', error);
+                alert('Error processing zip file. Please try again.');
+            }
+        }
+
+        async function downloadFile(filename, file) {
+            try {
+                const blob = await file.async('blob');
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            } catch (error) {
+                console.error('Error downloading file:', error);
+                alert('Error downloading file. Please try again.');
+            }
+        }
+    </script>
+</body>
+</html>

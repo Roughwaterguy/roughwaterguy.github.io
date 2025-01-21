@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Editor Playground</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        #editor {
+            width: 100%;
+            height: 300px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+        .button-container {
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        input[type="text"] {
+            font-size: 16px;
+            padding: 8px;
+            margin-left: 10px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Text Editor Playground</h1>
+    <textarea id="editor" placeholder="Write your text here..."></textarea>
+    <div class="button-container">
+        <button onclick="openText()">Open</button>
+        <button onclick="saveText()">Save</button>
+        <input type="text" id="filename" placeholder="Enter filename.ext">
+    </div>
+
+    <script>
+        // Function to interpret text as HTML and open in new tab
+        function openText() {
+            const text = document.getElementById('editor').value;
+            const newWindow = window.open();
+            newWindow.document.open();
+            newWindow.document.write(text);
+            newWindow.document.close();
+        }
+
+        // Function to save the text as a file with specified name and extension
+        function saveText() {
+            const text = document.getElementById('editor').value;
+            const filename = document.getElementById('filename').value || 'default.txt'; // Default to 'default.txt' if no filename provided
+            const blob = new Blob([text], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            link.click();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customizable Draggable and Resizable Windows</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevents scrolling */
+            background-image: url('deskb.jpg');
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+
+        .window {
+            position: absolute;
+            width: 400px;
+            height: 300px;
+            border: 2px solid rgb(17, 42, 191); /* Secondary color */
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: move;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .window-header {
+            padding: 10px;
+            background-color: rgb(58, 242, 177); /* Primary color */
+            color: #000;
+            cursor: move;
+            user-select: none; /* Prevents text selection */
+            display: flex;
+            justify-content: space-between; /* Space between title and close button */
+            align-items: center; /* Center vertically */
+            border-bottom: 2px solid rgb(17, 42, 191); /* Secondary color */
+        }
+
+        .window-header span {
+            font-weight: bold;
+        }
+
+        .window-content {
+            flex-grow: 1;
+            padding: 10px;
+            overflow: auto;
+        }
+
+        .resize-handle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: rgb(17, 42, 191); /* Secondary color */
+            bottom: 0;
+            right: 0;
+            cursor: se-resize; /* Indicates resizing */
+            border-radius: 50%;
+        }
+
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background-color: rgb(17, 42, 191); /* Secondary color */
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            border-top: 2px solid rgb(58, 242, 177); /* Primary color */
+        }
+
+        .taskbar button {
+            background-color: rgb(58, 242, 177); /* Primary color */
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            margin-right: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+
+        .taskbar button:hover {
+            background-color: rgb(45, 188, 138); /* Slightly darker primary color */
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #000;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 0 5px;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: red;
+        }
+
+        /* Modal for adding custom window */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .modal-content input,
+        .modal-content button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid rgb(17, 42, 191);
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .modal-content button {
+            background-color: rgb(58, 242, 177); /* Primary color */
+            color: #000;
+            cursor: pointer;
+            font-size: 16px;
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+        .modal-content button:hover {
+            background-color: rgb(45, 188, 138); /* Slightly darker primary color */
+        }
+    </style>
+</head>
+<body>
+    <!-- Taskbar -->
+    <div class="taskbar">
+        <button id="ed-window-btn">ED</button>
+        <button id="zp-window-btn">ZP</button>
+        <button id="fl-window-btn">FL</button>
+        <button id="cl-window-btn">CL</button>
+        <button id="td-window-btn">TD</button>
+        <button id="add-window-btn">+</button>
+        
+    </div>
+
+    <!-- Modal for adding new window -->
+    <div id="add-window-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3>Add New Window</h3>
+            <input type="text" id="window-name" placeholder="Enter window name" />
+            <input type="text" id="window-url" placeholder="Enter window URL" />
+            <button id="add-new-window">Add</button>
+        </div>
+    </div>
+
+    <script>
+        let zIndexCounter = 1000; // Starting z-index value for windows
+
+        // Function to make an element draggable
+        function makeDraggable(window) {
+            const header = window.querySelector('.window-header');
+            let offsetX = 0, offsetY = 0, isDragging = false;
+
+            header.addEventListener('mousedown', (e) => {
+                offsetX = e.clientX - window.offsetLeft;
+                offsetY = e.clientY - window.offsetTop;
+                isDragging = true;
+                bringToFront(window); // Bring the window to the front
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    window.style.left = `${e.clientX - offsetX}px`;
+                    window.style.top = `${e.clientY - offsetY}px`;
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+        }
+
+        // Function to make an element resizable
+        function makeResizable(window) {
+            const resizeHandle = window.querySelector('.resize-handle');
+            let initialWidth = 0, initialHeight = 0, initialMouseX = 0, initialMouseY = 0, isResizing = false;
+
+            resizeHandle.addEventListener('mousedown', (e) => {
+                initialWidth = window.clientWidth;
+                initialHeight = window.clientHeight;
+                initialMouseX = e.clientX;
+                initialMouseY = e.clientY;
+                isResizing = true;
+                bringToFront(window); // Bring the window to the front
+                e.preventDefault(); // Prevents text selection
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isResizing) {
+                    const width = initialWidth + (e.clientX - initialMouseX);
+                    const height = initialHeight + (e.clientY - initialMouseY);
+                    window.style.width = `${width}px`;
+                    window.style.height = `${height}px`;
+                    window.querySelector('.window-content iframe').style.width = `${width - 20}px`; // Adjust iframe width
+                    window.querySelector('.window-content iframe').style.height = `${height - 40}px`; // Adjust iframe height
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                isResizing = false;
+            });
+        }
+
+        // Function to bring a window to the front
+        function bringToFront(window) {
+            zIndexCounter += 1;
+            window.style.zIndex = zIndexCounter;
+        }
+
+        // Function to create a new window with an iframe
+        function createNewWindow(url, name) {
+            const newWindow = document.createElement('div');
+            newWindow.classList.add('window');
+            newWindow.innerHTML = `
+                <div class="window-header">
+                    <span>${name}</span> <!-- Set window title -->
+                    <button class="close-btn" onclick="closeWindow(this)">X</button>
+                </div>
+                <div class="window-content">
+                    <iframe src="${url}" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+                </div>
+                <div class="resize-handle"></div>
+            `;
+            newWindow.style.left = `${Math.random() * (window.innerWidth - 400)}px`;
+            newWindow.style.top = `${Math.random() * (window.innerHeight - 300 - 40)}px`; // 40px for taskbar height
+            document.body.appendChild(newWindow);
+
+            makeDraggable(newWindow);
+            makeResizable(newWindow);
+            bringToFront(newWindow); // Ensure new window starts at the front
+        }
+
+        // Close window function
+        function closeWindow(btn) {
+            const window = btn.closest('.window');
+            if (window) {
+                window.remove();
+            }
+        }
+
+        // Function to add a new button to the taskbar
+        function addTaskbarButton(name, url) {
+            const newButton = document.createElement('button');
+            newButton.textContent = name;
+            newButton.addEventListener('click', () => createNewWindow(url, name));
+            document.querySelector('.taskbar').appendChild(newButton);
+        }
+
+        // Event listeners for the pre-existing buttons
+        document.getElementById('ed-window-btn').addEventListener('click', () => createNewWindow('edit.html', 'ED'));
+        document.getElementById('zp-window-btn').addEventListener('click', () => createNewWindow('zip.html', 'ZP'));
+        document.getElementById('fl-window-btn').addEventListener('click', () => createNewWindow('file.html', 'FL'));
+        document.getElementById('cl-window-btn').addEventListener('click', () => createNewWindow('calc.html', 'CL'));
+        document.getElementById('td-window-btn').addEventListener('click', () => createNewWindow('todo.html', 'TD'));
+
+        // Open modal for adding new window
+        document.getElementById('add-window-btn').addEventListener('click', () => {
+            document.getElementById('add-window-modal').style.display = 'flex';
+        });
+
+        // Add new window and button on submit
+        document.getElementById('add-new-window').addEventListener('click', () => {
+            const name = document.getElementById('window-name').value;
+            const url = document.getElementById('window-url').value;
+
+            if (name && url) {
+                addTaskbarButton(name, url);
+                createNewWindow(url, name);
+                document.getElementById('add-window-modal').style.display = 'none';
+                document.getElementById('window-name').value = ''; // Reset fields
+                document.getElementById('window-url').value = '';
+            } else {
+                alert('Please enter both name and URL!');
+            }
+        });
+
+        // Close modal if clicking outside content
+        document.getElementById('add-window-modal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('add-window-modal')) {
+                document.getElementById('add-window-modal').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

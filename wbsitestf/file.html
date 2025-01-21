@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload and Preview</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        #drop-zone {
+            border: 1px solid black;
+            padding: 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        #preview-frame, #preview-container canvas {
+            width: 100%;
+            height: 600px; /* Default height for preview frame and 3D canvas */
+            border: 1px solid black;
+            margin-top: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="drop-zone">
+            <p>Drop file here or click to upload</p>
+            <input type="file" id="file-input" accept=".obj,.stl,.pdf,image/*,text/*">
+        </div>
+        <button id="open-btn" disabled>Open File</button>
+        <button id="fullscreen-btn">Fullscreen</button>
+        <div id="preview-container">
+            <iframe id="preview-frame" class="hidden"></iframe>
+        </div>
+    </div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.153.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.153.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { STLLoader } from 'three/addons/loaders/STLLoader.js';
+        import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const openBtn = document.getElementById('open-btn');
+        const previewFrame = document.getElementById('preview-frame');
+        const previewContainer = document.getElementById('preview-container');
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        let selectedFile = null;
+        let renderer, camera, scene, controls;
+
+        dropZone.addEventListener('click', () => fileInput.click());
+        dropZone.addEventListener('dragover', (e) => e.preventDefault());
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+            if (files.length > 0) {
+                selectedFile = files[0];
+                openBtn.disabled = false;
+            }
+        }
+
+        openBtn.addEventListener('click', () => {
+            if (selectedFile) {
+                const fileExtension = selectedFile.name.split('.').pop().toLowerCase();
+                if (fileExtension === 'obj' || fileExtension === 'stl') {
+                    previewFrame.classList.add('hidden');
+                    load3DModel(selectedFile, fileExtension);
+                } else {
+                    const fileURL = URL.createObjectURL(selectedFile);
+                    previewFrame.src = fileURL;
+                    previewFrame.classList.remove('hidden');
+                }
+            }
+        });
+
+        function load3DModel(file, fileExtension) {
+            // Increase the height of the 3D preview container
+            previewContainer.style.height = '800px'; // Set desired height for 3D view
+
+            // Initialize scene, camera, and renderer
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, previewContainer.clientWidth / previewContainer.clientHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer();
+            renderer.setSize(previewContainer.clientWidth, previewContainer.clientHeight);
+
+            // Clear the container and append the renderer's DOM element
+            previewContainer.innerHTML = '';
+            previewContainer.appendChild(renderer.domElement);
+
+            controls = new OrbitControls(camera, renderer.domElement);
+
+            // Add lighting
+            const ambientLight = new THREE.AmbientLight(0x404040);
+            scene.add(ambientLight);
+
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+            directionalLight.position.set(1, 1, 1);
+            scene.add(directionalLight);
+
+            camera.position.z = 5;
+
+            const loader = fileExtension === 'obj' ? new OBJLoader() : new STLLoader();
+            loader.load(
+                URL.createObjectURL(file),
+                (object) => {
+                    if (fileExtension === 'stl') {
+                        const material = new THREE.MeshPhongMaterial({ color: 0xaaaaaa, specular: 0x111111, shininess: 200 });
+                        object = new THREE.Mesh(object, material);
+                    }
+                    scene.add(object);
+
+                    const boundingBox = new THREE.Box3().setFromObject(object);
+                    const center = boundingBox.getCenter(new THREE.Vector3());
+                    const size = boundingBox.getSize(new THREE.Vector3());
+
+                    const maxDim = Math.max(size.x, size.y, size.z);
+                    const fov = camera.fov * (Math.PI / 180);
+                    let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+                    cameraZ *= 1.5;
+
+                    camera.position.set(center.x, center.y, center.z + cameraZ);
+                    camera.lookAt(center);
+                    controls.target.set(center.x, center.y, center.z);
+                    controls.update();
+                },
+                (xhr) => {
+                    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+                },
+                (error) => {
+                    console.log('An error happened', error);
+                }
+            );
+
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            if (controls) controls.update();
+            if (renderer && scene && camera) renderer.render(scene, camera);
+        }
+
+        function resizeRenderer() {
+            if (camera && renderer) {
+                camera.aspect = previewContainer.clientWidth / previewContainer.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(previewContainer.clientWidth, previewContainer.clientHeight);
+            }
+        }
+
+        // Adjust the height of the 3D preview dynamically based on window size
+        function adjustPreviewHeight() {
+            const windowHeight = window.innerHeight;
+            previewContainer.style.height = `${windowHeight - 100}px`; // Adjust as needed
+            resizeRenderer();
+        }
+
+        window.addEventListener('resize', adjustPreviewHeight);
+        adjustPreviewHeight(); // Call once on load
+
+        fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+        function toggleFullscreen() {
+            const element = previewFrame.classList.contains('hidden') ? previewContainer : previewFrame;
+            if (!document.fullscreenElement) {
+                if (element.requestFullscreen) {
+                    element.requestFullscreen();
+                } else if (element.mozRequestFullScreen) {
+                    element.mozRequestFullScreen();
+                } else if (element.webkitRequestFullscreen) {
+                    element.webkitRequestFullscreen();
+                } else if (element.msRequestFullscreen) {
+                    element.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+
+        document.addEventListener('fullscreenchange', updateFullscreenButton);
+        document.addEventListener('webkitfullscreenchange', updateFullscreenButton);
+        document.addEventListener('mozfullscreenchange', updateFullscreenButton);
+        document.addEventListener('MSFullscreenChange', updateFullscreenButton);
+
+        function updateFullscreenButton() {
+            fullscreenBtn.textContent = document.fullscreenElement ? 'Exit Fullscreen' : 'Fullscreen';
+        }
+    </script>
+</body>
+</html>
