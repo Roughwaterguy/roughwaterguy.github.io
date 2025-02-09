@@ -1,3 +1,5 @@
-<tite>
-  <text>This is the first TITE page</text>
-</tite>
+<root>
+    <tite>
+        <text>This is the first TITE page</text>
+    </tite>
+</root>
