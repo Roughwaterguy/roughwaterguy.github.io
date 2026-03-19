@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Divisible by 3?</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=IBM+Plex+Sans:wght@300;600&display=swap');
+
+  :root {
+    --bg: #0f0f0f;
+    --panel: #1a1a1a;
+    --border: #2e2e2e;
+    --green: #39ff14;
+    --red: #ff3b3b;
+    --dim: #555;
+    --text: #e8e8e8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  h1 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
+    font-size: 1rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 2.5rem;
+  }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 480px;
+  }
+
+  label {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 0.6rem;
+  }
+
+  textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.4rem;
+    padding: 0.75rem 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 1rem;
+    resize: none;
+    overflow: hidden;
+    line-height: 1.5;
+    min-height: 3.2rem;
+    word-break: break-all;
+    display: block;
+  }
+
+  textarea:focus { border-color: #555; }
+
+  textarea.error { border-color: var(--red); }
+
+  button {
+    width: 100%;
+    background: var(--text);
+    color: var(--bg);
+    border: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.85rem;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  button:hover { opacity: 0.85; }
+  button:active { opacity: 0.7; }
+
+  .error-msg {
+    font-size: 0.75rem;
+    color: var(--red);
+    margin-bottom: 1rem;
+    min-height: 1rem;
+    display: none;
+  }
+
+  .result-area {
+    margin-top: 2rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+    display: none;
+  }
+
+  .result-area.visible { display: block; }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .step {
+    font-size: 0.8rem;
+    color: var(--dim);
+  }
+
+  .step span {
+    color: var(--text);
+    word-break: break-all;
+  }
+
+  .verdict {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    padding: 1rem;
+    text-align: center;
+    border: 1px solid;
+  }
+
+  .verdict.yes {
+    color: var(--green);
+    border-color: var(--green);
+    background: rgba(57,255,20,0.05);
+  }
+
+  .verdict.no {
+    color: var(--red);
+    border-color: var(--red);
+    background: rgba(255,59,59,0.05);
+  }
+</style>
+</head>
+<body>
+
+<h1>Divisibility Checker</h1>
+
+<div class="card">
+  <label for="numInput">Enter a number</label>
+  <textarea id="numInput" placeholder="e.g. 123456789" autocomplete="off" rows="1"></textarea>
+  <div class="error-msg" id="errorMsg">Digits only — no letters, spaces, or decimals.</div>
+  <button onclick="checkNumber()">Check if divisible by 3</button>
+
+  <div class="result-area" id="resultArea">
+    <div class="steps" id="steps"></div>
+    <div class="verdict" id="verdict"></div>
+  </div>
+</div>
+
+<script>
+  const input = document.getElementById('numInput');
+
+  // Auto-resize textarea as user types
+  function autoResize() {
+    input.style.height = 'auto';
+    input.style.height = input.scrollHeight + 'px';
+  }
+
+  input.addEventListener('input', autoResize);
+
+  // Block newlines — Enter triggers check instead
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      checkNumber();
+    }
+  });
+
+  function checkNumber() {
+    const raw = input.value.trim();
+    const errorMsg = document.getElementById('errorMsg');
+    const resultArea = document.getElementById('resultArea');
+
+    // Validate
+    if (!/^\d+$/.test(raw)) {
+      input.classList.add('error');
+      errorMsg.style.display = 'block';
+      resultArea.classList.remove('visible');
+      return;
+    }
+
+    input.classList.remove('error');
+    errorMsg.style.display = 'none';
+
+    // Run the digit-sum loop (mirrors the BASIC logic)
+    const stepsLog = [];
+    let current = raw;
+
+    stepsLog.push({ label: 'Input', value: current });
+
+    while (current.length > 1 || (stepsLog.length === 1)) {
+      let total = 0;
+      for (let i = 0; i < current.length; i++) {
+        total += parseInt(current[i], 10);
+      }
+      stepsLog.push({ label: 'Digit sum', value: total.toString() });
+      current = total.toString();
+      if (current.length === 1) break;
+    }
+
+    const finalDigit = parseInt(current, 10);
+    const divisible = finalDigit % 3 === 0;
+
+    // Render steps
+    const stepsEl = document.getElementById('steps');
+    stepsEl.innerHTML = stepsLog.map(s =>
+      `<div class="step">${s.label}: <span>${s.value}</span></div>`
+    ).join('');
+
+    // Render verdict
+    const verdictEl = document.getElementById('verdict');
+    if (divisible) {
+      verdictEl.textContent = 'Yes — divisible by 3';
+      verdictEl.className = 'verdict yes';
+    } else {
+      verdictEl.textContent = 'No — not divisible by 3';
+      verdictEl.className = 'verdict no';
+    }
+
+    resultArea.classList.add('visible');
+  }
+</script>
+
+</body>
+</html>
